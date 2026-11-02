@@ -1,0 +1,4181 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>寒霜啟示錄：8大經典手機廣告小遊戲合集 (Whiteout Survival Authentic Ad Minigames)</title>
+  <style>
+/* ==========================================================================
+   《寒霜啟示錄》真實手機版試玩廣告合集 (9:16 直式手機廣告框 + 資料庫對照側邊欄)
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+  font-family: 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans TC', 'Arial Black', sans-serif;
+  color: #f8fafc;
+  touch-action: none;
+}
+
+#app-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 12px;
+}
+
+/* 左側資料庫對照導覽欄 (寬螢幕顯示) */
+#db-sidebar {
+  width: 340px;
+  height: min(920px, 96vh);
+  background: rgba(15, 23, 42, 0.92);
+  border: 2px solid #334155;
+  border-radius: 22px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+}
+
+@media (max-width: 900px) {
+  #db-sidebar {
+    display: none;
+  }
+  #app-wrapper {
+    padding: 0;
+  }
+}
+
+.sidebar-header {
+  border-bottom: 1.5px solid #334155;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.sidebar-badge {
+  display: inline-block;
+  background: #0284c7;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.sidebar-header h1 {
+  font-size: 17px;
+  font-weight: 900;
+  color: #fde047;
+  margin-bottom: 4px;
+}
+
+.sidebar-header p {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.35;
+}
+
+#game-mode-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-right: 4px;
+}
+
+.mode-item {
+  cursor: pointer;
+  text-align: left;
+  background: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 13px;
+  padding: 9px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: all 0.15s ease;
+}
+
+.mode-item:hover {
+  border-color: #38bdf8;
+  transform: translateX(3px);
+}
+
+.mode-item.active {
+  background: linear-gradient(135deg, #0c4a6e 0%, #1e3a8a 100%);
+  border-color: #facc15;
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.35);
+}
+
+.mode-tag {
+  font-size: 10px;
+  font-weight: 900;
+  color: #38bdf8;
+  letter-spacing: 0.4px;
+}
+
+.mode-title {
+  font-size: 13.5px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.mode-desc {
+  font-size: 11.5px;
+  color: #cbd5e1;
+  line-height: 1.3;
+}
+
+/* 中央 9:16 擬真手機直式廣告外框 */
+#phone-frame {
+  width: min(500px, 100vw);
+  height: min(920px, 100vh);
+  background: #0b1322;
+  border: 5px solid #334155;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), 0 0 0 2px #0f172a;
+}
+
+@media (max-width: 600px) {
+  #phone-frame {
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+  }
+}
+
+/* 手機頂部假廣告資訊列 */
+#ad-phone-header {
+  height: 48px;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  flex-shrink: 0;
+  z-index: 30;
+}
+
+.ad-app-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ad-app-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.ad-app-title {
+  font-size: 12.5px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.ad-app-stars {
+  font-size: 11px;
+  color: #facc15;
+  font-weight: 800;
+}
+
+.ad-app-stars span {
+  color: #94a3b8;
+}
+
+.ad-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#btn-sound-toggle {
+  cursor: pointer;
+  background: #1e293b;
+  border: 1.5px solid #475569;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 14px;
+}
+
+.ad-countdown {
+  background: rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.ad-fake-close {
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* 手機快速切換 8 款小遊戲標籤列 */
+#mobile-mode-tabs {
+  background: #131c2e;
+  display: flex;
+  gap: 5px;
+  padding: 6px 8px;
+  overflow-x: auto;
+  border-bottom: 1.5px solid #1e293b;
+  flex-shrink: 0;
+  z-index: 30;
+}
+
+#mobile-mode-tabs::-webkit-scrollbar {
+  height: 0;
+}
+
+.m-tab {
+  cursor: pointer;
+  background: #1e293b;
+  color: #cbd5e1;
+  border: 1.5px solid #475569;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 11.5px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.m-tab.active {
+  background: #facc15;
+  color: #0f172a;
+  border-color: #fff;
+}
+
+/* 誇張紅底黃字買量標題橫幅 */
+#ad-hook-banner {
+  background: linear-gradient(90deg, #991b1b 0%, #dc2626 50%, #991b1b 100%);
+  border-bottom: 2.5px solid #fde047;
+  padding: 6px 10px;
+  text-align: center;
+  flex-shrink: 0;
+  z-index: 30;
+}
+
+#ad-hook-text {
+  font-size: 13.5px;
+  font-weight: 900;
+  color: #fef08a;
+  text-shadow: -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000;
+}
+
+/* 溫度計與進度狀態列 */
+#ad-thermo-bar {
+  background: #0f172a;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1.5px solid #1e293b;
+  flex-shrink: 0;
+  z-index: 30;
+}
+
+.thermo-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 900;
+  color: #38bdf8;
+  white-space: nowrap;
+}
+
+.thermo-progress-wrap {
+  flex: 1;
+  height: 18px;
+  background: #020617;
+  border: 1.5px solid #475569;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+#thermo-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8 0%, #22c55e 55%, #f97316 100%);
+  transition: width 0.2s ease;
+}
+
+#thermo-progress-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+}
+
+/* 核心遊戲畫布舞台 */
+#game-viewport {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #0d1b2a;
+}
+
+#three-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+#ad-2d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  display: block;
+}
+
+#frost-screen-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 12;
+  box-shadow: inset 0 0 55px rgba(56, 189, 248, 0.65);
+  transition: box-shadow 0.3s ease;
+}
+
+#floating-ui-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 18;
+  overflow: hidden;
+}
+
+/* 白色手指教學引導動畫 */
+#ad-hand-pointer {
+  position: absolute;
+  z-index: 24;
+  font-size: 44px;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.85));
+  animation: handPoke 0.75s infinite alternate ease-in-out;
+}
+
+@keyframes handPoke {
+  0% { transform: translate(-20%, -10%) scale(1) rotate(-12deg); }
+  100% { transform: translate(-20%, -32%) scale(1.18) rotate(0deg); }
+}
+
+/* 底部三選一道具卡槽 (用於第1關破屋修窗與第6關難民審核) */
+#ad-bottom-choices {
+  position: absolute;
+  bottom: 14px;
+  left: 10px;
+  right: 10px;
+  z-index: 22;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.choice-card-btn {
+  cursor: pointer;
+  flex: 1;
+  max-width: 142px;
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+  border: 3.5px solid #0284c7;
+  border-radius: 18px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 6px 0 #0369a1, 0 10px 20px rgba(0,0,0,0.65);
+  transition: transform 0.12s ease;
+}
+
+.choice-card-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  border-color: #facc15;
+}
+
+.choice-card-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #0369a1;
+}
+
+.choice-icon {
+  font-size: 36px;
+}
+
+.choice-label {
+  font-size: 13px;
+  font-weight: 900;
+  color: #0f172a;
+  text-align: center;
+}
+
+/* 3D 搖桿 */
+#joystick-overlay {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+}
+
+#joy-ring {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.55);
+  border: 3px solid rgba(255, 255, 255, 0.65);
+  position: relative;
+}
+
+#joy-knob {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fef08a, #f59e0b);
+  border: 2.5px solid #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.joy-tip {
+  font-size: 11px;
+  font-weight: 900;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+
+/* 廣告失敗 FROZEN 或勝利彈窗 */
+#ad-result-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 45;
+  background: rgba(4, 9, 20, 0.84);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.result-box {
+  width: 100%;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border: 4px solid #ef4444;
+  border-radius: 24px;
+  padding: 22px 18px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.85);
+}
+
+.result-box.win {
+  border-color: #4ade80;
+}
+
+.result-stamp {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 900;
+  padding: 4px 18px;
+  border-radius: 999px;
+  background: #dc2626;
+  color: #fff;
+  border: 2.5px solid #fde047;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.result-box.win .result-stamp {
+  background: #16a34a;
+}
+
+#result-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 8px;
+  text-shadow: -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000;
+}
+
+#result-desc {
+  font-size: 13.5px;
+  color: #cbd5e1;
+  font-weight: 700;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.result-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-retry-ad {
+  cursor: pointer;
+  background: linear-gradient(180deg, #facc15 0%, #ca8a04 100%);
+  color: #0f172a;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 12px;
+  border-radius: 14px;
+  border: 2.5px solid #fff;
+  box-shadow: 0 4px 0 #854d0e;
+}
+
+.btn-next-ad {
+  cursor: pointer;
+  background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 11px;
+  border-radius: 14px;
+  border: 2.5px solid #fff;
+  text-shadow: 1px 1px 0 #000;
+}
+
+/* 手機底部常駐廣告下載列 */
+#ad-phone-footer {
+  cursor: pointer;
+  height: 54px;
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+  border-top: 2px solid #334155;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  flex-shrink: 0;
+  z-index: 30;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-tag {
+  font-size: 10px;
+  font-weight: 900;
+  color: #38bdf8;
+}
+
+#footer-mode-name {
+  font-size: 12.5px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.footer-cta-btn {
+  background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  text-shadow: 1px 1px 0 #000;
+  animation: ctaPop 1.3s infinite ease-in-out;
+}
+
+@keyframes ctaPop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.floating-text {
+  position: absolute;
+  font-weight: 900;
+  pointer-events: none;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+  animation: floatUp 0.85s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% { opacity: 1; transform: translate(-50%, -10%) scale(0.7); }
+  30% { opacity: 1; transform: translate(-50%, -60%) scale(1.15); }
+  100% { opacity: 0; transform: translate(-50%, -135%) scale(0.95); }
+}
+
+.hidden {
+  display: none !important;
+}
+
+</style>
+  <!-- 引入 Three.js r128 CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <!-- 外層背景：桌機顯示深色冰霜背景，中央為 9:16 真實手機直式廣告視窗 -->
+  <div id="app-wrapper">
+    <!-- 左側資料庫對照導覽欄 (桌機顯示，可一鍵切換 8 款完全不同機制的手機廣告小遊戲) -->
+    <aside id="db-sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-badge">📚 依據 32 款資料庫重置</div>
+        <h1>《寒霜啟示錄》手機廣告小遊戲合集</h1>
+        <p>每一關皆為獨立且機制截然不同的真實手機買量廣告（9:16 直式觸控介面）：</p>
+      </div>
+
+      <div id="game-mode-list">
+        <button class="mode-item active" data-mode="1" onclick="window.Game && window.Game.switchAdMode(1)">
+          <span class="mode-tag">CAT-04 · AD-012/013</span>
+          <span class="mode-title">① 破屋貼膠帶修窗 ＆ 生火抉擇</span>
+          <span class="mode-desc">母女在 -80°C 破木屋發抖！拖曳木板/膠帶封窗、點選正確生火道具，選錯直接凍成冰雕或炸飛！</span>
+        </button>
+
+        <button class="mode-item" data-mode="2" onclick="window.Game && window.Game.switchAdMode(2)">
+          <span class="mode-tag">CAT-07 · AD-023</span>
+          <span class="mode-title">② 拔針救人：岩漿與北極熊管線</span>
+          <span class="mode-desc">經典拉栓解謎（Pull the Pin）！抽開正確插銷讓滾燙岩漿燙死北極熊、熱氣流入房間！</span>
+        </button>
+
+        <button class="mode-item" data-mode="3" onclick="window.Game && window.Game.switchAdMode(3)">
+          <span class="mode-tag">CAT-06 · AD-019</span>
+          <span class="mode-title">③ 雪地跑酷倍增門：射擊獸潮</span>
+          <span class="mode-desc">左右滑動帶領小隊穿過「+10人 / ×2火力」藍色數值門，射爆冰桶與迎面衝來的北極熊王！</span>
+        </button>
+
+        <button class="mode-item" data-mode="4" onclick="window.Game && window.Game.switchAdMode(4)">
+          <span class="mode-tag">CAT-02 · AD-005</span>
+          <span class="mode-title">④ 除雪小分隊 (Snowbusters)</span>
+          <span class="mode-desc">背著燃料吸塵噴火器把厚重積雪吸乾抹淨！注意燃料耗盡前必須回營火補充，解救雪下凍僵居民！</span>
+        </button>
+
+        <button class="mode-item" data-mode="5" onclick="window.Game && window.Game.switchAdMode(5)">
+          <span class="mode-tag">CAT-01/03 · AD-001/008</span>
+          <span class="mode-title">⑤ 獵熊背生肉 ＆ 難民烤肉吧檯</span>
+          <span class="mode-desc">搖桿打北極熊背起高塔生肉，送進烤爐端給排隊發抖的難民，收銀台美金鈔票磚堆成山！</span>
+        </button>
+
+        <button class="mode-item" data-mode="6" onclick="window.Game && window.Game.switchAdMode(6)">
+          <span class="mode-tag">CAT-05 · AD-017</span>
+          <span class="mode-title">⑥ 難民收容審核：選顏值還實力？</span>
+          <span class="mode-desc">扮演避難所守門員！用體溫探測鏡檢查排隊的火辣美女、伐木壯漢與偽裝雪怪，蓋章放行或驅逐！</span>
+        </button>
+
+        <button class="mode-item" data-mode="7" onclick="window.Game && window.Game.switchAdMode(7)">
+          <span class="mode-tag">CAT-08 · AD-028</span>
+          <span class="mode-title">⑦ 冰洞深海垂釣 (Fishing Ad)</span>
+          <span class="mode-desc">在冰面鑿洞放下魚鉤，左右滑動避開水雷與食人魚，深入海底勾起潛水員、寶箱與深海巨獸！</span>
+        </button>
+
+        <button class="mode-item" data-mode="8" onclick="window.Game && window.Game.switchAdMode(8)">
+          <span class="mode-tag">CAT-07 · AD-024</span>
+          <span class="mode-title">⑧ 轉螺絲拆鐵板救母女 (Screw Jam)</span>
+          <span class="mode-desc">暖氣閥門被彩色鐵板鎖死！點擊拆卸螺絲移到空孔位讓鐵板掉落，在失溫倒數前接通暖氣！</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- 中央 9:16 擬真手機直式廣告外框 (Mobile Portrait Ad Frame) -->
+    <main id="phone-frame">
+      <!-- 手機頂部假廣告資訊列 (Playable Ad Header + 倒數計時 + 假 X 按鈕) -->
+      <header id="ad-phone-header">
+        <div class="ad-app-info">
+          <div class="ad-app-icon">❄️</div>
+          <div class="ad-app-meta">
+            <div class="ad-app-title">寒霜啟示錄 (Whiteout Survival)</div>
+            <div class="ad-app-stars">★★★★★ <span>4.9 · 試玩廣告</span></div>
+          </div>
+        </div>
+        <div class="ad-header-right">
+          <button id="btn-sound-toggle" onclick="window.SoundManager && window.SoundManager.toggleMute()">🔊</button>
+          <div class="ad-countdown" id="ad-timer-badge">15s</div>
+          <button class="ad-fake-close" onclick="window.Game && window.Game.onClickFakeClose()" title="關閉廣告">✕</button>
+        </div>
+      </header>
+
+      <!-- 手機版頂部快速切換小遊戲膠囊列 -->
+      <nav id="mobile-mode-tabs">
+        <button class="m-tab active" data-mode="1" onclick="window.Game && window.Game.switchAdMode(1)">①修窗生火</button>
+        <button class="m-tab" data-mode="2" onclick="window.Game && window.Game.switchAdMode(2)">②拔針救人</button>
+        <button class="m-tab" data-mode="3" onclick="window.Game && window.Game.switchAdMode(3)">③跑酷選門</button>
+        <button class="m-tab" data-mode="4" onclick="window.Game && window.Game.switchAdMode(4)">④吸塵除雪</button>
+        <button class="m-tab" data-mode="5" onclick="window.Game && window.Game.switchAdMode(5)">⑤打熊烤肉</button>
+        <button class="m-tab" data-mode="6" onclick="window.Game && window.Game.switchAdMode(6)">⑥難民審核</button>
+        <button class="m-tab" data-mode="7" onclick="window.Game && window.Game.switchAdMode(7)">⑦冰洞釣魚</button>
+        <button class="m-tab" data-mode="8" onclick="window.Game && window.Game.switchAdMode(8)">⑧轉螺絲</button>
+      </nav>
+
+      <!-- 誇張紅底黃字買量標題橫幅 -->
+      <div id="ad-hook-banner">
+        <span id="ad-hook-text">「別管渣男了！快用膠帶封住破窗！99%的人選錯凍死！」</span>
+      </div>
+
+      <!-- 室內/室外溫度計與失溫狀態列 -->
+      <div id="ad-thermo-bar">
+        <div class="thermo-left">
+          <span id="thermo-emoji">🥶</span>
+          <span id="thermo-temp-text">-78°C 極度嚴寒</span>
+        </div>
+        <div class="thermo-progress-wrap">
+          <div id="thermo-progress-fill" style="width: 25%;"></div>
+          <span id="thermo-progress-label">體溫瀕危！請立即操作</span>
+        </div>
+      </div>
+
+      <!-- 遊戲核心畫面舞台 (支援 Three.js 3D 渲染 + 2D 互動 Canvas 與 DOM 道具拖曳層) -->
+      <div id="game-viewport">
+        <!-- Three.js 3D 畫布 (用於跑酷選門、吸塵除雪、打熊烤肉等 3D 廣告模式) -->
+        <div id="three-container"></div>
+
+        <!-- 2D 高精細互動 Canvas 畫布 (用於破屋修窗、拔針岩漿物理、難民審核、冰洞釣魚、轉螺絲物理) -->
+        <canvas id="ad-2d-canvas" width="540" height="820"></canvas>
+
+        <!-- 結霜失溫邊框遮罩 -->
+        <div id="frost-screen-vignette"></div>
+
+        <!-- 浮動跳字與對話氣泡層 -->
+        <div id="floating-ui-layer"></div>
+
+        <!-- 白色手指教學引導動畫 (Bouncing White Hand Pointer) -->
+        <div id="ad-hand-pointer" class="hidden">👆</div>
+
+        <!-- 底部道具選擇卡槽 (用於第1關破屋修窗三選一、第6關難民審核紅綠燈按鈕) -->
+        <div id="ad-bottom-choices" class="hidden"></div>
+
+        <!-- 3D 模式專用虛擬搖桿 -->
+        <div id="joystick-overlay" class="hidden">
+          <div id="joy-ring">
+            <div id="joy-knob"></div>
+          </div>
+          <div class="joy-tip">拖曳搖桿移動</div>
+        </div>
+      </div>
+
+      <!-- 廣告失敗「FROZEN / 凍死失敗」或「VICTORY / 逆襲成功」大彈窗 -->
+      <div id="ad-result-modal" class="hidden">
+        <div class="result-box" id="result-box-card">
+          <div class="result-stamp" id="result-stamp-text">FROZEN!</div>
+          <h2 id="result-title">🥶 選擇錯誤！母女被凍成冰雕！</h2>
+          <p id="result-desc">「這麼簡單都會失敗？換你試試能不能活下來！」</p>
+          <div class="result-buttons">
+            <button class="btn-retry-ad" onclick="window.Game && window.Game.retryCurrentMode()">
+              🔄 再試一次 (證明 IQ 180)
+            </button>
+            <button class="btn-next-ad" onclick="window.Game && window.Game.nextAdMode()">
+              ▶ 玩下一款寒霜廣告小遊戲
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 手機底部常駐 App Store 假下載橫幅 -->
+      <footer id="ad-phone-footer" onclick="window.Game && window.Game.nextAdMode()">
+        <div class="footer-left">
+          <span class="footer-tag">熱門副玩法</span>
+          <span id="footer-mode-name">目前模式：破屋修窗與生火抉擇</span>
+        </div>
+        <div class="footer-cta-btn">切換下一款廣告 ⚡</div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- 依序載入 6 個核心 JS 模組 -->
+  <script>
+/**
+ * ==========================================================================
+ * js/textures.js - 離屏 Canvas 2D 高解析度貼圖與 Sprite 工廠 (TextureFactory)
+ * 負責生成所有 3D 材質貼圖（生肉T字骨油花、原木年輪、美金捆鈔帶、升級地墊、倍增門、粒子）
+ * ==========================================================================
+ */
+
+(function () {
+  const cache = {};
+
+  function createCanvas(w, h) {
+    const c = document.createElement('canvas');
+    c.width = w;
+    c.height = h;
+    return c;
+  }
+
+  function drawRoundedRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  const TextureFactory = {
+    /**
+     * 1. 雪地地面無縫質感貼圖
+     */
+    getSnowGroundTexture() {
+      if (cache.snowGround) return cache.snowGround;
+      const c = createCanvas(512, 512);
+      const ctx = c.getContext('2d');
+
+      const grad = ctx.createLinearGradient(0, 0, 512, 512);
+      grad.addColorStop(0, '#dceeff');
+      grad.addColorStop(0.5, '#eef7ff');
+      grad.addColorStop(1, '#cde4fa');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 512);
+
+      // 細緻雪地凹痕與晶體斑點
+      for (let i = 0; i < 450; i++) {
+        const x = Math.random() * 512;
+        const y = Math.random() * 512;
+        const r = 2 + Math.random() * 14;
+        ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.55)' : 'rgba(165,205,240,0.28)';
+        ctx.beginPath();
+        ctx.ellipse(x, y, r * 1.6, r * 0.7, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(16, 16);
+      cache.snowGround = tex;
+      return tex;
+    },
+
+    /**
+     * 2. 厚切生肉塊貼圖（帶鮮紅油花大理石紋與白色 T 字骨頭）
+     */
+    getMeatTopTexture() {
+      if (cache.meatTop) return cache.meatTop;
+      const c = createCanvas(256, 256);
+      const ctx = c.getContext('2d');
+
+      // 白色脂肪外圈
+      ctx.fillStyle = '#fff5f5';
+      ctx.fillRect(0, 0, 256, 256);
+
+      // 鮮紅瘦肉內圈
+      drawRoundedRect(ctx, 18, 18, 220, 220, 36);
+      const grad = ctx.createRadialGradient(128, 128, 20, 128, 128, 120);
+      grad.addColorStop(0, '#ef4444');
+      grad.addColorStop(0.7, '#dc2626');
+      grad.addColorStop(1, '#991b1b');
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // 油花紋路
+      ctx.strokeStyle = 'rgba(255, 228, 230, 0.75)';
+      ctx.lineWidth = 5;
+      ctx.lineCap = 'round';
+      const marbling = [
+        [45, 70, 95, 95, 130, 65],
+        [150, 75, 195, 110, 210, 160],
+        [55, 165, 100, 185, 160, 195],
+        [70, 120, 120, 145, 185, 125]
+      ];
+      marbling.forEach(m => {
+        ctx.beginPath();
+        ctx.moveTo(m[0], m[1]);
+        ctx.quadraticCurveTo(m[2], m[3], m[4], m[5]);
+        ctx.stroke();
+      });
+
+      // 中央醒目白色 T 字骨頭
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#fecdd3';
+      ctx.lineWidth = 4;
+      drawRoundedRect(ctx, 64, 88, 128, 28, 12);
+      ctx.fill();
+      ctx.stroke();
+      drawRoundedRect(ctx, 114, 96, 28, 95, 12);
+      ctx.fill();
+      ctx.stroke();
+
+      // 圓骨髓心
+      ctx.beginPath();
+      ctx.arc(128, 104, 10, 0, Math.PI * 2);
+      ctx.fillStyle = '#fda4af';
+      ctx.fill();
+
+      const tex = new THREE.CanvasTexture(c);
+      cache.meatTop = tex;
+      return tex;
+    },
+
+    /**
+     * 3. 原木年輪截面與樹皮貼圖
+     */
+    getWoodEndTexture() {
+      if (cache.woodEnd) return cache.woodEnd;
+      const c = createCanvas(256, 256);
+      const ctx = c.getContext('2d');
+
+      ctx.fillStyle = '#5c3a21';
+      ctx.fillRect(0, 0, 256, 256);
+
+      ctx.beginPath();
+      ctx.arc(128, 128, 112, 0, Math.PI * 2);
+      ctx.fillStyle = '#d9a066';
+      ctx.fill();
+
+      ctx.strokeStyle = '#8f563b';
+      for (let r = 18; r < 108; r += 16) {
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(128, 128, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // 裂紋
+      ctx.strokeStyle = '#5c3a21';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(128, 128);
+      ctx.lineTo(195, 90);
+      ctx.stroke();
+
+      const tex = new THREE.CanvasTexture(c);
+      cache.woodEnd = tex;
+      return tex;
+    },
+
+    getWoodBarkTexture() {
+      if (cache.woodBark) return cache.woodBark;
+      const c = createCanvas(256, 256);
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#5c3818';
+      ctx.fillRect(0, 0, 256, 256);
+      for (let i = 0; i < 45; i++) {
+        ctx.fillStyle = i % 2 === 0 ? '#42260e' : '#734822';
+        ctx.fillRect(Math.random() * 256, 0, 8 + Math.random() * 12, 256);
+      }
+      const tex = new THREE.CanvasTexture(c);
+      cache.woodBark = tex;
+      return tex;
+    },
+
+    /**
+     * 4. 美金鈔票磚貼圖（亮綠鈔票 + 白色捆鈔帶 + $ 符號）
+     */
+    getCashBillTexture() {
+      if (cache.cashBill) return cache.cashBill;
+      const c = createCanvas(256, 128);
+      const ctx = c.getContext('2d');
+
+      ctx.fillStyle = '#15803d';
+      ctx.fillRect(0, 0, 256, 128);
+
+      ctx.strokeStyle = '#86efac';
+      ctx.lineWidth = 8;
+      ctx.strokeRect(10, 10, 236, 108);
+
+      ctx.fillStyle = '#22c55e';
+      ctx.fillRect(22, 22, 212, 84);
+
+      // 中央金色/墨綠圓形與 $ 號
+      ctx.beginPath();
+      ctx.arc(128, 64, 34, 0, Math.PI * 2);
+      ctx.fillStyle = '#14532d';
+      ctx.fill();
+
+      ctx.fillStyle = '#bbf7d0';
+      ctx.font = '900 48px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('$', 128, 66);
+
+      // 白色捆鈔紙帶
+      ctx.fillStyle = '#fef9c3';
+      ctx.fillRect(88, 0, 26, 128);
+      ctx.fillStyle = '#ca8a04';
+      ctx.fillRect(92, 0, 4, 128);
+
+      const tex = new THREE.CanvasTexture(c);
+      cache.cashBill = tex;
+      return tex;
+    },
+
+    /**
+     * 5. 動態生成「地面白框觸發地墊 (Ground Unlock Pad)」貼圖
+     * 支援即時重繪剩餘金額与綠色進度條
+     */
+    createPadCanvasTexture(icon, title, remainingCost, totalCost, isMaxed) {
+      const c = createCanvas(512, 320);
+      const ctx = c.getContext('2d');
+      this.updatePadCanvas(c, ctx, icon, title, remainingCost, totalCost, isMaxed);
+      const tex = new THREE.CanvasTexture(c);
+      tex.minFilter = THREE.LinearFilter;
+      return { canvas: c, ctx, texture: tex };
+    },
+
+    updatePadCanvas(c, ctx, icon, title, remainingCost, totalCost, isMaxed) {
+      ctx.clearRect(0, 0, 512, 320);
+
+      // 半透明深藍底板
+      drawRoundedRect(ctx, 12, 12, 488, 296, 38);
+      ctx.fillStyle = isMaxed ? 'rgba(20, 83, 45, 0.85)' : 'rgba(15, 23, 42, 0.88)';
+      ctx.fill();
+
+      // 底部進度條填色
+      const ratio = totalCost > 0 ? Math.max(0, Math.min(1, (totalCost - remainingCost) / totalCost)) : 1;
+      if (!isMaxed && ratio > 0) {
+        ctx.save();
+        drawRoundedRect(ctx, 18, 18, 476, 284, 32);
+        ctx.clip();
+        ctx.fillStyle = 'rgba(34, 197, 94, 0.42)';
+        ctx.fillRect(18, 18 + 284 * (1 - ratio), 476, 284 * ratio);
+        ctx.restore();
+      }
+
+      // 白色粗邊框
+      drawRoundedRect(ctx, 12, 12, 488, 296, 38);
+      ctx.lineWidth = 14;
+      ctx.strokeStyle = isMaxed ? '#4ade80' : '#ffffff';
+      ctx.stroke();
+
+      // 內圈虛線裝飾
+      drawRoundedRect(ctx, 28, 28, 456, 264, 26);
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = 'rgba(255,255,255,0.28)';
+      ctx.stroke();
+
+      // 左側大圖示
+      ctx.font = '82px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(icon, 110, 122);
+
+      // 右側標題文字（白字黑邊）
+      ctx.font = '900 38px "Microsoft JhengHei", Arial';
+      ctx.textAlign = 'left';
+      ctx.lineWidth = 9;
+      ctx.strokeStyle = '#000000';
+      ctx.strokeText(title, 180, 102);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(title, 180, 102);
+
+      // 金額顯示或已解鎖
+      const priceStr = isMaxed ? '✔ 已完成升級' : `💵 $${Math.max(0, Math.ceil(remainingCost))}`;
+      ctx.font = '900 46px Arial';
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = '#000000';
+      ctx.strokeText(priceStr, 180, 166);
+      ctx.fillStyle = isMaxed ? '#4ade80' : '#fde047';
+      ctx.fillText(priceStr, 180, 166);
+
+      // 底部綠色進度條槽
+      drawRoundedRect(ctx, 44, 224, 424, 46, 23);
+      ctx.fillStyle = '#090d16';
+      ctx.fill();
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = '#475569';
+      ctx.stroke();
+
+      const fillW = Math.max(0, Math.min(412, 412 * (isMaxed ? 1 : ratio)));
+      if (fillW > 8) {
+        drawRoundedRect(ctx, 50, 230, fillW, 34, 17);
+        const barGrad = ctx.createLinearGradient(50, 0, 462, 0);
+        barGrad.addColorStop(0, '#22c55e');
+        barGrad.addColorStop(1, '#a3e635');
+        ctx.fillStyle = barGrad;
+        ctx.fill();
+      }
+
+      ctx.font = '900 24px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(isMaxed ? 'MAX LEVEL' : '踩踏地墊自動投入美金', 256, 248);
+    },
+
+    /**
+     * 6. 藍色/青色「倍增門 (Multiplier Gate)」光幕貼圖
+     */
+    createGateTexture(label, subLabel, colorHex) {
+      const c = createCanvas(256, 384);
+      const ctx = c.getContext('2d');
+
+      const grad = ctx.createLinearGradient(0, 0, 0, 384);
+      grad.addColorStop(0, colorHex || 'rgba(14, 165, 233, 0.85)');
+      grad.addColorStop(0.5, 'rgba(56, 189, 248, 0.55)');
+      grad.addColorStop(1, 'rgba(14, 165, 233, 0.85)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 256, 384);
+
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 12;
+      ctx.strokeRect(6, 6, 244, 372);
+
+      ctx.font = '900 62px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = '#000000';
+      ctx.strokeText(label, 128, 160);
+      ctx.fillStyle = '#fde047';
+      ctx.fillText(label, 128, 160);
+
+      ctx.font = '900 32px "Microsoft JhengHei", Arial';
+      ctx.strokeText(subLabel, 128, 240);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(subLabel, 128, 240);
+
+      return new THREE.CanvasTexture(c);
+    },
+
+    /**
+     * 7. 頭頂醒目紅底白字「MAX!」3D 告示牌貼圖
+     */
+    getMaxSignTexture() {
+      if (cache.maxSign) return cache.maxSign;
+      const c = createCanvas(256, 128);
+      const ctx = c.getContext('2d');
+
+      drawRoundedRect(ctx, 10, 16, 236, 96, 28);
+      ctx.fillStyle = '#dc2626';
+      ctx.fill();
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = '#fde047';
+      ctx.stroke();
+
+      ctx.font = '900 58px Arial Black, Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = '#000000';
+      ctx.strokeText('MAX!', 128, 66);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('MAX!', 128, 66);
+
+      cache.maxSign = new THREE.CanvasTexture(c);
+      return cache.maxSign;
+    },
+
+    /**
+     * 8. 地面發光黃色指引箭頭貼圖 (Tutorial Chevron Arrow)
+     */
+    getChevronArrowTexture() {
+      if (cache.chevron) return cache.chevron;
+      const c = createCanvas(128, 128);
+      const ctx = c.getContext('2d');
+
+      ctx.beginPath();
+      ctx.moveTo(64, 14);
+      ctx.lineTo(114, 74);
+      ctx.lineTo(86, 74);
+      ctx.lineTo(86, 114);
+      ctx.lineTo(42, 114);
+      ctx.lineTo(42, 74);
+      ctx.lineTo(14, 74);
+      ctx.closePath();
+
+      ctx.fillStyle = '#facc15';
+      ctx.fill();
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = '#000000';
+      ctx.stroke();
+
+      cache.chevron = new THREE.CanvasTexture(c);
+      return cache.chevron;
+    },
+
+    /**
+     * 9. 圓形柔和發光粒子貼圖
+     */
+    getSoftParticleTexture() {
+      if (cache.softParticle) return cache.softParticle;
+      const c = createCanvas(64, 64);
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(32, 32, 2, 32, 32, 30);
+      grad.addColorStop(0, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.5, 'rgba(255,255,255,0.65)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 64, 64);
+      cache.softParticle = new THREE.CanvasTexture(c);
+      return cache.softParticle;
+    },
+
+    /**
+     * 10. 熔爐地面溫暖橘色光環貼圖
+     */
+    getWarmRingTexture() {
+      if (cache.warmRing) return cache.warmRing;
+      const c = createCanvas(512, 512);
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(256, 256, 20, 256, 256, 250);
+      grad.addColorStop(0, 'rgba(251, 146, 60, 0.36)');
+      grad.addColorStop(0.75, 'rgba(249, 115, 22, 0.22)');
+      grad.addColorStop(0.93, 'rgba(253, 224, 71, 0.78)');
+      grad.addColorStop(1, 'rgba(253, 224, 71, 0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(256, 256, 250, 0, Math.PI * 2);
+      ctx.fill();
+      cache.warmRing = new THREE.CanvasTexture(c);
+      return cache.warmRing;
+    }
+  };
+
+  window.TextureFactory = TextureFactory;
+})();
+
+</script>
+  <script>
+/**
+ * ==========================================================================
+ * js/audio.js - 基於 Web Audio API 的多軌合成音效與背景音樂引擎 (SoundManager)
+ * 零外部音訊檔案依賴，100% 即時合成試玩廣告魔性音效：
+ * 暴風雪環境風聲、清脆砍樹聲、揮斧砍肉聲、肉塊吸入背上的連續升調啵啵聲 (Ascending Pitch Pop)、
+ * 金幣高速飛入地墊的叮叮叮收銀機聲、熔爐烈焰轟鳴聲、升級解鎖號角聲、北極熊王咆哮與震地重低音。
+ * ==========================================================================
+ */
+
+(function () {
+  const SoundManager = {
+    ctx: null,
+    isMuted: false,
+    windGain: null,
+    popComboCount: 0,
+    lastPopTime: 0,
+    coinComboCount: 0,
+    lastCoinTime: 0,
+    lastFlameTime: 0,
+
+    init() {
+      if (this.ctx) {
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        return;
+      }
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      this.ctx = new AudioCtx();
+      this.startBlizzardAmbience();
+    },
+
+    toggleMute() {
+      this.init();
+      this.isMuted = !this.isMuted;
+      const btn = document.getElementById('btn-mute');
+      if (btn) btn.textContent = this.isMuted ? '🔇' : '🔊';
+      if (this.windGain && this.ctx) {
+        this.windGain.gain.setTargetAtTime(this.isMuted ? 0 : 0.06, this.ctx.currentTime, 0.1);
+      }
+    },
+
+    /**
+     * 1. 暴風雪持續呼嘯環境風聲 (Filtered Pink/White Noise + LFO)
+     */
+    startBlizzardAmbience() {
+      if (!this.ctx) return;
+      const bufferSize = this.ctx.sampleRate * 3;
+      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      let b0 = 0, b1 = 0, b2 = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.997 * b0 + white * 0.029;
+        b1 = 0.985 * b1 + white * 0.032;
+        b2 = 0.950 * b2 + white * 0.048;
+        data[i] = (b0 + b1 + b2 + white * 0.02) * 0.35;
+      }
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = buffer;
+      noise.loop = true;
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 380;
+      filter.Q.value = 2.2;
+
+      // 風聲高低起伏 LFO
+      const lfo = this.ctx.createOscillator();
+      lfo.frequency.value = 0.22;
+      const lfoGain = this.ctx.createGain();
+      lfoGain.gain.value = 220;
+      lfo.connect(filter.frequency);
+      lfo.start();
+
+      this.windGain = this.ctx.createGain();
+      this.windGain.gain.value = this.isMuted ? 0 : 0.06;
+
+      noise.connect(filter);
+      filter.connect(this.windGain);
+      this.windGain.connect(this.ctx.destination);
+      noise.start();
+    },
+
+    /**
+     * 2. 清脆砍樹聲 (Wood Chop)
+     */
+    playChopWood() {
+      if (this.isMuted) return;
+      this.init();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(190, now);
+      osc.frequency.exponentialRampToValueAtTime(65, now + 0.09);
+
+      gain.gain.setValueAtTime(0.32, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.1);
+    },
+
+    /**
+     * 3. 揮斧砍肉與重擊北極熊聲 (Heavy Meat Slash)
+     */
+    playHitFlesh(isCrit) {
+      if (this.isMuted) return;
+      this.init();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = isCrit ? 'sawtooth' : 'sine';
+      osc.frequency.setValueAtTime(isCrit ? 260 : 165, now);
+      osc.frequency.exponentialRampToValueAtTime(38, now + 0.13);
+
+      gain.gain.setValueAtTime(isCrit ? 0.38 : 0.26, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.14);
+    },
+
+    /**
+     * 4. 肉塊/木柴吸入背上的「連續升調啵啵聲 (Ascending Pitch Pop)」
+     */
+    playStackPop() {
+      if (this.isMuted) return;
+      this.init();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+
+      if (now - this.lastPopTime > 1.2) {
+        this.popComboCount = 0;
+      }
+      this.lastPopTime = now;
+      this.popComboCount = Math.min(20, this.popComboCount + 1);
+
+      // 依連擊數升高半音
+      const baseFreq = 320 * Math.pow(1.055, this.popComboCount);
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(baseFreq * 0.75, now);
+      osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.45, now + 0.075);
+
+      gain.gain.setValueAtTime(0.24, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.085);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.09);
+    },
+
+    /**
+     * 5. 金幣高速飛入地墊與收銀台的「叮叮叮收銀機聲 (Cash Register Ding)」
+     */
+    playCoinDing() {
+      if (this.isMuted) return;
+      this.init();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+
+      if (now - this.lastCoinTime > 0.8) {
+        this.coinComboCount = 0;
+      }
+      this.lastCoinTime = now;
+      this.coinComboCount = Math.min(18, this.coinComboCount + 1);
+
+      const freq = 980 + this.coinComboCount * 45;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, now);
+      osc.frequency.setValueAtTime(freq * 1.25, now + 0.03);
+
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.11);
+    },
+
+    /**
+     * 6. 熔爐烈焰與噴火除雪機轟鳴聲 (Flame Whoosh)
+     */
+    playFlameWhoosh() {
+      if (this.isMuted) return;
+      this.init();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+      if (now - this.lastFlameTime < 0.12) return;
+      this.lastFlameTime = now;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(110 + Math.random() * 35, now);
+      osc.frequency.exponentialRampToValueAtTime(48, now + 0.16);
+
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.17);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.17);
+    },
+
+    /**
+     * 7. 升級地墊解鎖與過關號角聲 (Unlock Fanfare)
+     */
+    playUnlockFanfare() {
+      if (this.isMuted) return;
+      this.init();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+      const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
+
+      notes.forEach((f, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        const startT = now + idx * 0.065;
+        osc.frequency.setValueAtTime(f, startT);
+
+        gain.gain.setValueAtTime(0.26, startT);
+        gain.gain.exponentialRampToValueAtTime(0.001, startT + 0.28);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(startT);
+        osc.stop(startT + 0.29);
+      });
+    },
+
+    /**
+     * 8. 北極熊王咆哮與泰山壓頂震地重低音 (Boss Roar & Ground Slam)
+     */
+    playBossRoar() {
+      if (this.isMuted) return;
+      this.init();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(145, now);
+      osc.frequency.linearRampToValueAtTime(75, now + 0.3);
+      osc.frequency.exponentialRampToValueAtTime(32, now + 0.75);
+
+      gain.gain.setValueAtTime(0.42, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.78);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.8);
+    }
+  };
+
+  window.SoundManager = SoundManager;
+})();
+
+</script>
+  <script>
+/**
+ * ==========================================================================
+ * js/particles.js - 3D 與 2D 混合粒子特效系統 (ParticleSystem)
+ * 包含：漫天暴風雪飄雪粒子、熔爐上升火星與熱浪、砍樹木屑飛濺、打熊鮮血/冰晶噴濺、
+ * 噴火器火焰流、升級地墊解鎖時的金色光柱與彩帶爆炸、地面紅圈技能預警動畫。
+ * ==========================================================================
+ */
+
+(function () {
+  class ParticleSystem {
+    constructor(scene) {
+      this.scene = scene;
+      this.burstParticles = [];
+      this.telegraphWarnings = [];
+      this.snowSystem = null;
+      this.snowCount = 950;
+      this.initSnowstorm();
+    }
+
+    /**
+     * 1. 漫天暴風雪 3D 飄雪粒子
+     */
+    initSnowstorm() {
+      const geo = new THREE.BufferGeometry();
+      const positions = new Float32Array(this.snowCount * 3);
+      for (let i = 0; i < this.snowCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 90;
+        positions[i * 3 + 1] = Math.random() * 28;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 90;
+      }
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const mat = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.48,
+        map: window.TextureFactory.getSoftParticleTexture(),
+        transparent: true,
+        opacity: 0.85,
+        depthWrite: false
+      });
+
+      this.snowSystem = new THREE.Points(geo, mat);
+      this.scene.add(this.snowSystem);
+    }
+
+    /**
+     * 2. 通用 3D 粒子爆發（木屑、鮮血、冰晶、火焰、金色升級彩帶）
+     */
+    emitBurst(pos, options = {}) {
+      const count = options.count || 12;
+      const color = options.color !== undefined ? options.color : 0xffffff;
+      const speed = options.speed || 6;
+      const size = options.size || 0.25;
+      const gravity = options.gravity !== undefined ? options.gravity : 14;
+      const life = options.life || 0.55;
+
+      const geo = new THREE.BoxGeometry(size, size, size);
+      for (let i = 0; i < count; i++) {
+        const mat = new THREE.MeshBasicMaterial({
+          color: Array.isArray(color) ? color[i % color.length] : color,
+          transparent: true,
+          opacity: 1
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(
+          pos.x + (Math.random() - 0.5) * 0.6,
+          pos.y + 0.4 + Math.random() * 0.5,
+          pos.z + (Math.random() - 0.5) * 0.6
+        );
+
+        const angle = Math.random() * Math.PI * 2;
+        const spd = speed * (0.45 + Math.random() * 0.75);
+        const vel = new THREE.Vector3(
+          Math.cos(angle) * spd,
+          (options.upward || 3.5) + Math.random() * 3.5,
+          Math.sin(angle) * spd
+        );
+
+        this.scene.add(mesh);
+        this.burstParticles.push({
+          mesh,
+          vel,
+          gravity,
+          age: 0,
+          maxLife: life * (0.75 + Math.random() * 0.4)
+        });
+      }
+    }
+
+    /**
+     * 3. 噴火除雪機定向火焰流粒子
+     */
+    emitFlamethrower(origin, dir) {
+      for (let i = 0; i < 3; i++) {
+        const colors = [0xfef08a, 0xf97316, 0xef4444];
+        const size = 0.28 + Math.random() * 0.22;
+        const geo = new THREE.SphereGeometry(size, 6, 6);
+        const mat = new THREE.MeshBasicMaterial({
+          color: colors[i % colors.length],
+          transparent: true,
+          opacity: 0.92
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.copy(origin);
+        mesh.position.y += 1.05;
+
+        const spreadX = (Math.random() - 0.5) * 2.2;
+        const spreadZ = (Math.random() - 0.5) * 2.2;
+        const vel = new THREE.Vector3(
+          dir.x * 13 + spreadX,
+          (Math.random() - 0.3) * 1.8,
+          dir.z * 13 + spreadZ
+        );
+
+        this.scene.add(mesh);
+        this.burstParticles.push({
+          mesh,
+          vel,
+          gravity: -2.5, // 火焰微向上飄
+          age: 0,
+          maxLife: 0.32
+        });
+      }
+    }
+
+    /**
+     * 4. 升級地墊完成時的金色光柱與彩帶噴泉
+     */
+    emitUnlockCelebration(pos) {
+      this.emitBurst(pos, {
+        count: 28,
+        color: [0xfde047, 0x4ade80, 0x38bdf8, 0xf43f5e],
+        speed: 8.5,
+        upward: 6.5,
+        size: 0.32,
+        life: 0.85
+      });
+
+      // 金色衝天光柱
+      const pillarGeo = new THREE.CylinderGeometry(1.6, 1.6, 12, 18, 1, true);
+      const pillarMat = new THREE.MeshBasicMaterial({
+        color: 0xfacc15,
+        transparent: true,
+        opacity: 0.65,
+        side: THREE.DoubleSide
+      });
+      const pillar = new THREE.Mesh(pillarGeo, pillarMat);
+      pillar.position.set(pos.x, 6, pos.z);
+      this.scene.add(pillar);
+
+      this.burstParticles.push({
+        mesh: pillar,
+        vel: new THREE.Vector3(0, 2, 0),
+        gravity: 0,
+        age: 0,
+        maxLife: 0.55,
+        isPillar: true
+      });
+    }
+
+    /**
+     * 5. Boss 地面紅圈技能預警動畫 (圓形震地 / 扇形極寒吐息)
+     */
+    createTelegraphWarning(type, pos, radius, duration, angleDir = 0, onTrigger) {
+      const group = new THREE.Group();
+      group.position.set(pos.x, 0.08, pos.z);
+
+      let bgGeo, fillGeo;
+      if (type === 'cone') {
+        bgGeo = new THREE.CircleGeometry(radius, 24, -Math.PI / 3, (Math.PI * 2) / 3);
+        fillGeo = new THREE.CircleGeometry(radius, 24, -Math.PI / 3, (Math.PI * 2) / 3);
+        group.rotation.y = -angleDir;
+      } else {
+        bgGeo = new THREE.CircleGeometry(radius, 32);
+        fillGeo = new THREE.CircleGeometry(radius, 32);
+      }
+
+      bgGeo.rotateX(-Math.PI / 2);
+      fillGeo.rotateX(-Math.PI / 2);
+
+      const bgMat = new THREE.MeshBasicMaterial({
+        color: 0xef4444,
+        transparent: true,
+        opacity: 0.28,
+        side: THREE.DoubleSide
+      });
+      const fillMat = new THREE.MeshBasicMaterial({
+        color: 0xdc2626,
+        transparent: true,
+        opacity: 0.68,
+        side: THREE.DoubleSide
+      });
+
+      const bgMesh = new THREE.Mesh(bgGeo, bgMat);
+      const fillMesh = new THREE.Mesh(fillGeo, fillMat);
+      fillMesh.position.y = 0.02;
+      fillMesh.scale.set(0.05, 1, 0.05);
+
+      group.add(bgMesh);
+      group.add(fillMesh);
+      this.scene.add(group);
+
+      this.telegraphWarnings.push({
+        group,
+        fillMesh,
+        type,
+        pos: pos.clone(),
+        radius,
+        angleDir,
+        elapsed: 0,
+        duration,
+        onTrigger
+      });
+    }
+
+    /**
+     * 6. 2D 螢幕空間浮動跳字 (暴擊傷害 CRIT!、+$150、+1 肉塊)
+     */
+    spawnFloatingText(worldPos, camera, text, color = '#ffffff', sizePx = 20) {
+      const layer = document.getElementById('world-ui-layer');
+      if (!layer || !camera) return;
+
+      const v = worldPos.clone();
+      v.y += 1.8;
+      v.project(camera);
+      if (v.z > 1) return;
+
+      const x = (v.x * 0.5 + 0.5) * window.innerWidth;
+      const y = (-(v.y * 0.5) + 0.5) * window.innerHeight;
+
+      const el = document.createElement('div');
+      el.className = 'floating-text';
+      el.textContent = text;
+      el.style.left = `${x + (Math.random() - 0.5) * 26}px`;
+      el.style.top = `${y + (Math.random() - 0.5) * 16}px`;
+      el.style.color = color;
+      el.style.fontSize = `${sizePx}px`;
+
+      layer.appendChild(el);
+      setTimeout(() => {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      }, 850);
+    }
+
+    update(dt, playerPos) {
+      // 更新漫天風雪圍繞玩家飄落
+      if (this.snowSystem && playerPos) {
+        const posAttr = this.snowSystem.geometry.attributes.position;
+        const arr = posAttr.array;
+        for (let i = 0; i < this.snowCount; i++) {
+          arr[i * 3] -= dt * 7.5;     // 狂風橫吹
+          arr[i * 3 + 1] -= dt * 9.5; // 下落
+          arr[i * 3 + 2] += dt * 2.5;
+
+          if (arr[i * 3 + 1] < 0) {
+            arr[i * 3] = playerPos.x + (Math.random() - 0.5) * 75 + 15;
+            arr[i * 3 + 1] = 22 + Math.random() * 8;
+            arr[i * 3 + 2] = playerPos.z + (Math.random() - 0.5) * 75;
+          }
+        }
+        posAttr.needsUpdate = true;
+      }
+
+      // 更新 3D 爆發粒子
+      for (let i = this.burstParticles.length - 1; i >= 0; i--) {
+        const p = this.burstParticles[i];
+        p.age += dt;
+        if (p.age >= p.maxLife) {
+          this.scene.remove(p.mesh);
+          this.burstParticles.splice(i, 1);
+          continue;
+        }
+        p.vel.y -= p.gravity * dt;
+        p.mesh.position.addScaledVector(p.vel, dt);
+        if (p.isPillar) {
+          p.mesh.scale.x = 1 + p.age * 2.5;
+          p.mesh.scale.z = 1 + p.age * 2.5;
+        } else {
+          p.mesh.rotation.x += dt * 6;
+          p.mesh.rotation.y += dt * 6;
+        }
+        p.mesh.material.opacity = Math.max(0, 1 - p.age / p.maxLife);
+      }
+
+      // 更新 Boss 紅圈預警動畫
+      for (let i = this.telegraphWarnings.length - 1; i >= 0; i--) {
+        const w = this.telegraphWarnings[i];
+        w.elapsed += dt;
+        const ratio = Math.min(1, w.elapsed / w.duration);
+        w.fillMesh.scale.set(ratio, 1, ratio);
+
+        if (w.elapsed >= w.duration) {
+          if (w.onTrigger) w.onTrigger(w);
+          this.scene.remove(w.group);
+          this.telegraphWarnings.splice(i, 1);
+        }
+      }
+    }
+
+    clearWarnings() {
+      this.telegraphWarnings.forEach(w => this.scene.remove(w.group));
+      this.telegraphWarnings = [];
+    }
+  }
+
+  window.ParticleSystem = ParticleSystem;
+})();
+
+</script>
+  <script>
+/**
+ * ==========================================================================
+ * js/models.js - 精細複合幾何體 3D 模型生成工廠 (ModelFactory)
+ * 拒絕單一正方體！全數使用複合幾何體組合並套用 TextureFactory 高清貼圖：
+ * - 主角與倖存者（厚羽絨服、毛領帽、背包木架、可揮動右手武器、雙腿走路擺動動畫）
+ * - 5 階武器模型（石斧 ➔ 消防斧 ➔ 雙管噴火除雪機 ➔ 雷電鏈鋸 ➔ 神話烈焰巨斧）
+ * - 背負物模型（T字骨油花厚切生肉塊、年輪原木、美金鈔票磚、黃金磚）
+ * - 野生動物與 5 大關卡 Boss（雪原狼、劍齒虎、北極熊、重裝猛獁象、皇冠北極熊王）
+ * - 基地建築（中央蒸汽大熔爐、旋轉烤肉攤、收銀台、自動機槍塔、蒸汽火車與鐵軌、倍增門）
+ * ==========================================================================
+ */
+
+(function () {
+  function enableShadows(group) {
+    group.traverse(child => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+  }
+
+  const ModelFactory = {
+    /**
+     * 1. 主角 / AI 倖存者複合 3D 模型
+     */
+    createCharacter(options = {}) {
+      const coatColor = options.coatColor || 0x0284c7; // 寒霜經典藍羽絨服
+      const furColor = options.furColor || 0xfef3c7;
+      const isFrozenVictim = !!options.isFrozenVictim;
+
+      const root = new THREE.Group();
+
+      // 雙腿關節
+      const legGeo = new THREE.CylinderGeometry(0.16, 0.14, 0.65, 10);
+      const bootMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.7 });
+      const leftLeg = new THREE.Mesh(legGeo, bootMat);
+      leftLeg.position.set(-0.2, 0.32, 0);
+      const rightLeg = new THREE.Mesh(legGeo, bootMat);
+      rightLeg.position.set(0.2, 0.32, 0);
+      root.add(leftLeg, rightLeg);
+
+      // 厚羽絨服軀幹
+      const bodyGeo = new THREE.CylinderGeometry(0.42, 0.48, 0.95, 14);
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: isFrozenVictim ? 0x93c5fd : coatColor,
+        roughness: 0.55
+      });
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      body.position.y = 0.98;
+      root.add(body);
+
+      // 腰帶與金扣
+      const belt = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.47, 0.47, 0.14, 14),
+        new THREE.MeshStandardMaterial({ color: 0x292524 })
+      );
+      belt.position.y = 0.76;
+      root.add(belt);
+
+      // 毛絨連帽領圈
+      const collarGeo = new THREE.TorusGeometry(0.38, 0.12, 10, 18);
+      collarGeo.rotateX(Math.PI / 2);
+      const furMat = new THREE.MeshStandardMaterial({ color: furColor, roughness: 0.9 });
+      const collar = new THREE.Mesh(collarGeo, furMat);
+      collar.position.y = 1.46;
+      root.add(collar);
+
+      // 頭部與腮紅眼睛
+      const headGroup = new THREE.Group();
+      headGroup.position.y = 1.72;
+      const headMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(0.32, 14, 14),
+        new THREE.MeshStandardMaterial({
+          color: isFrozenVictim ? 0xbfdbfe : 0xffedd5,
+          roughness: 0.6
+        })
+      );
+      headGroup.add(headMesh);
+
+      // 防風保暖帽頂
+      const hoodMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(0.345, 14, 14, 0, Math.PI * 2, 0, Math.PI * 0.65),
+        bodyMat
+      );
+      hoodMesh.rotation.x = -0.35;
+      headGroup.add(hoodMesh);
+
+      // 雙眼
+      const eyeGeo = new THREE.SphereGeometry(0.045, 8, 8);
+      const eyeMat = new THREE.MeshBasicMaterial({ color: 0x0f172a });
+      const eyeL = new THREE.Mesh(eyeGeo, eyeMat);
+      eyeL.position.set(-0.11, 0.04, 0.28);
+      const eyeR = new THREE.Mesh(eyeGeo, eyeMat);
+      eyeR.position.set(0.11, 0.04, 0.28);
+      headGroup.add(eyeL, eyeR);
+      root.add(headGroup);
+
+      // 左手與右手揮砍關節
+      const armGeo = new THREE.CylinderGeometry(0.13, 0.11, 0.62, 10);
+      const leftArmPivot = new THREE.Group();
+      leftArmPivot.position.set(-0.5, 1.32, 0);
+      const leftArm = new THREE.Mesh(armGeo, bodyMat);
+      leftArm.position.y = -0.24;
+      leftArmPivot.add(leftArm);
+      root.add(leftArmPivot);
+
+      const rightArmPivot = new THREE.Group();
+      rightArmPivot.position.set(0.5, 1.32, 0);
+      const rightArm = new THREE.Mesh(armGeo, bodyMat);
+      rightArm.position.y = -0.24;
+      rightArmPivot.add(rightArm);
+
+      // 武器掛載點
+      const weaponMount = new THREE.Group();
+      weaponMount.position.set(0, -0.5, 0.18);
+      rightArmPivot.add(weaponMount);
+      root.add(rightArmPivot);
+
+      // 背部木製背架 (Back-Stacking Tray)
+      const packFrame = new THREE.Group();
+      packFrame.position.set(0, 1.05, -0.46);
+      const frameMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.8 });
+      const backBoard = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.75, 0.08), frameMat);
+      const bottomTray = new THREE.Mesh(new THREE.BoxGeometry(0.66, 0.08, 0.48), frameMat);
+      bottomTray.position.set(0, -0.35, -0.2);
+      packFrame.add(backBoard, bottomTray);
+      root.add(packFrame);
+
+      // 頭頂紅底白字「MAX!」3D 告示牌
+      const maxSpriteMat = new THREE.SpriteMaterial({
+        map: window.TextureFactory.getMaxSignTexture(),
+        transparent: true
+      });
+      const maxSprite = new THREE.Sprite(maxSpriteMat);
+      maxSprite.scale.set(1.5, 0.75, 1);
+      maxSprite.position.set(0, 2.75, 0);
+      maxSprite.visible = false;
+      root.add(maxSprite);
+
+      enableShadows(root);
+
+      root.userData = {
+        leftLeg,
+        rightLeg,
+        leftArmPivot,
+        rightArmPivot,
+        weaponMount,
+        packFrame,
+        maxSprite,
+        bodyMat,
+        walkCycle: 0,
+        swingTimer: 0
+      };
+      return root;
+    },
+
+    /**
+     * 2. 5 階武器 3D 模型生成
+     * Tier 1: 石斧 | Tier 2: 消防斧 | Tier 3: 雙管噴火除雪機 | Tier 4: 雷電鏈鋸 | Tier 5: 神話烈焰巨斧
+     */
+    createWeapon(tier = 1) {
+      const group = new THREE.Group();
+      const handleMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.7 });
+
+      if (tier === 1) {
+        // 1階：粗糙石斧
+        const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.95, 8), handleMat);
+        handle.rotation.x = Math.PI / 2;
+        handle.position.z = 0.35;
+        const stone = new THREE.Mesh(
+          new THREE.BoxGeometry(0.16, 0.42, 0.36),
+          new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.85 })
+        );
+        stone.position.set(0, 0.1, 0.72);
+        group.add(handle, stone);
+      } else if (tier === 2) {
+        // 2階：精鋼紅柄消防斧
+        const handle = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.05, 0.06, 1.15, 10),
+          new THREE.MeshStandardMaterial({ color: 0xdc2626 })
+        );
+        handle.rotation.x = Math.PI / 2;
+        handle.position.z = 0.42;
+        const blade = new THREE.Mesh(
+          new THREE.BoxGeometry(0.1, 0.56, 0.45),
+          new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.7, roughness: 0.25 })
+        );
+        blade.position.set(0, 0.14, 0.86);
+        group.add(handle, blade);
+      } else if (tier === 3) {
+        // 3階：雙管噴火除雪機
+        const body = new THREE.Mesh(
+          new THREE.BoxGeometry(0.36, 0.32, 0.75),
+          new THREE.MeshStandardMaterial({ color: 0xf97316, roughness: 0.4 })
+        );
+        body.position.z = 0.35;
+        const barrelGeo = new THREE.CylinderGeometry(0.07, 0.09, 0.65, 10);
+        barrelGeo.rotateX(Math.PI / 2);
+        const barrelMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.8 });
+        const b1 = new THREE.Mesh(barrelGeo, barrelMat);
+        b1.position.set(-0.09, 0.04, 0.82);
+        const b2 = new THREE.Mesh(barrelGeo, barrelMat);
+        b2.position.set(0.09, 0.04, 0.82);
+        const nozzleGlow = new THREE.Mesh(
+          new THREE.SphereGeometry(0.11, 8, 8),
+          new THREE.MeshBasicMaterial({ color: 0xfde047 })
+        );
+        nozzleGlow.position.set(0, 0.04, 1.15);
+        group.add(body, b1, b2, nozzleGlow);
+      } else if (tier === 4) {
+        // 4階：高壓雷電鏈鋸
+        const motor = new THREE.Mesh(
+          new THREE.BoxGeometry(0.32, 0.34, 0.48),
+          new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 })
+        );
+        motor.position.z = 0.22;
+        const sawBar = new THREE.Mesh(
+          new THREE.BoxGeometry(0.08, 0.28, 0.95),
+          new THREE.MeshStandardMaterial({
+            color: 0x38bdf8,
+            emissive: 0x0284c7,
+            emissiveIntensity: 0.6
+          })
+        );
+        sawBar.position.z = 0.82;
+        group.add(motor, sawBar);
+      } else {
+        // 5階：神話烈焰雙刃巨斧
+        const handle = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.06, 0.07, 1.45, 10),
+          new THREE.MeshStandardMaterial({ color: 0xfbbf24, metalness: 0.6, roughness: 0.3 })
+        );
+        handle.rotation.x = Math.PI / 2;
+        handle.position.z = 0.55;
+
+        const bladeMat = new THREE.MeshStandardMaterial({
+          color: 0xf97316,
+          emissive: 0xdc2626,
+          emissiveIntensity: 0.75,
+          roughness: 0.2
+        });
+        const bladeMain = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.95, 0.62), bladeMat);
+        bladeMain.position.set(0, 0.05, 1.08);
+        const coreGem = new THREE.Mesh(
+          new THREE.OctahedronGeometry(0.22),
+          new THREE.MeshBasicMaterial({ color: 0xfef08a })
+        );
+        coreGem.position.set(0, 0.05, 1.08);
+        group.add(handle, bladeMain, coreGem);
+      }
+
+      enableShadows(group);
+      return group;
+    },
+
+    /**
+     * 3. 背負與地面掉落物模型：生肉塊 (Meat) / 原木 (Wood) / 美金磚 (Cash)
+     */
+    createStackItem(type) {
+      if (type === 'meat') {
+        const topTex = window.TextureFactory.getMeatTopTexture();
+        const sideMat = new THREE.MeshStandardMaterial({ color: 0xb91c1c, roughness: 0.5 });
+        const topMat = new THREE.MeshStandardMaterial({ map: topTex, roughness: 0.4 });
+        const mesh = new THREE.Mesh(
+          new THREE.BoxGeometry(0.56, 0.19, 0.42),
+          [sideMat, sideMat, topMat, topMat, sideMat, sideMat]
+        );
+        mesh.castShadow = true;
+        mesh.userData.itemType = 'meat';
+        return mesh;
+      } else if (type === 'wood') {
+        const group = new THREE.Group();
+        const endMat = new THREE.MeshStandardMaterial({ map: window.TextureFactory.getWoodEndTexture() });
+        const barkMat = new THREE.MeshStandardMaterial({ map: window.TextureFactory.getWoodBarkTexture() });
+        const logGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.64, 10);
+        logGeo.rotateZ(Math.PI / 2);
+        const log = new THREE.Mesh(logGeo, [barkMat, endMat, endMat]);
+        log.castShadow = true;
+        group.add(log);
+        group.userData.itemType = 'wood';
+        return group;
+      } else {
+        // 美金鈔票磚
+        const billTex = window.TextureFactory.getCashBillTexture();
+        const sideMat = new THREE.MeshStandardMaterial({ color: 0x16a34a });
+        const topMat = new THREE.MeshStandardMaterial({ map: billTex });
+        const mesh = new THREE.Mesh(
+          new THREE.BoxGeometry(0.52, 0.15, 0.3),
+          [sideMat, sideMat, topMat, topMat, sideMat, sideMat]
+        );
+        mesh.castShadow = true;
+        mesh.userData.itemType = 'cash';
+        return mesh;
+      }
+    },
+
+    /**
+     * 4. 冰封雪松樹模型
+     */
+    createPineTree() {
+      const group = new THREE.Group();
+      const trunk = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.28, 0.38, 1.3, 10),
+        new THREE.MeshStandardMaterial({ color: 0x5c3818, roughness: 0.9 })
+      );
+      trunk.position.y = 0.65;
+      group.add(trunk);
+
+      const leafMat = new THREE.MeshStandardMaterial({ color: 0x1e5631, roughness: 0.7 });
+      const snowCapMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.4 });
+
+      const levels = [
+        { y: 1.7, r: 1.35, h: 1.5 },
+        { y: 2.65, r: 1.05, h: 1.35 },
+        { y: 3.45, r: 0.72, h: 1.1 }
+      ];
+      levels.forEach(lv => {
+        const cone = new THREE.Mesh(new THREE.ConeGeometry(lv.r, lv.h, 9), leafMat);
+        cone.position.y = lv.y;
+        const snowCone = new THREE.Mesh(new THREE.ConeGeometry(lv.r * 0.82, lv.h * 0.6, 9), snowCapMat);
+        snowCone.position.y = lv.y + lv.h * 0.23;
+        group.add(cone, snowCone);
+      });
+
+      enableShadows(group);
+      return group;
+    },
+
+    /**
+     * 5. 野生動物與 5 大關卡守關 Boss 模型
+     * species: 'wolf' | 'sabertooth' | 'bear' | 'mammoth' | 'boss_king'
+     */
+    createBeast(species = 'bear', isBoss = false) {
+      const root = new THREE.Group();
+      const scale = isBoss ? (species === 'boss_king' ? 2.55 : 1.85) : 1.0;
+
+      let furColor = 0xf8fafc;
+      if (species === 'wolf') furColor = isBoss ? 0x475569 : 0x64748b;
+      if (species === 'sabertooth') furColor = 0xfbbf24;
+      if (species === 'mammoth') furColor = 0x57534e;
+      if (species === 'boss_king') furColor = 0xffffff;
+
+      const furMat = new THREE.MeshStandardMaterial({ color: furColor, roughness: 0.65 });
+      const darkMat = new THREE.MeshStandardMaterial({ color: 0x0f172a });
+      const redEyeMat = new THREE.MeshBasicMaterial({ color: isBoss ? 0xef4444 : 0x1e293b });
+
+      // 四肢
+      const legGeo = new THREE.CylinderGeometry(0.22, 0.19, 0.85, 10);
+      const legs = [];
+      const legPositions = [
+        [-0.45, 0.42, 0.65],
+        [0.45, 0.42, 0.65],
+        [-0.45, 0.42, -0.65],
+        [0.45, 0.42, -0.65]
+      ];
+      legPositions.forEach(lp => {
+        const leg = new THREE.Mesh(legGeo, furMat);
+        leg.position.set(lp[0], lp[1], lp[2]);
+        root.add(leg);
+        legs.push(leg);
+      });
+
+      // 壯碩身軀與肩峰
+      const torso = new THREE.Mesh(new THREE.BoxGeometry(1.28, 1.05, 1.85), furMat);
+      torso.position.y = 1.08;
+      const shoulderHump = new THREE.Mesh(new THREE.SphereGeometry(0.68, 12, 12), furMat);
+      shoulderHump.position.set(0, 1.28, 0.42);
+      root.add(torso, shoulderHump);
+
+      // 頭部群組
+      const headGroup = new THREE.Group();
+      headGroup.position.set(0, 1.38, 1.15);
+      const skull = new THREE.Mesh(new THREE.BoxGeometry(0.82, 0.74, 0.78), furMat);
+      const snout = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.38, 0.52), furMat);
+      snout.position.set(0, -0.1, 0.52);
+      const nose = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.16, 0.14), darkMat);
+      nose.position.set(0, 0.02, 0.78);
+      headGroup.add(skull, snout, nose);
+
+      // 耳朵
+      const earGeo = new THREE.SphereGeometry(0.16, 8, 8);
+      const earL = new THREE.Mesh(earGeo, furMat);
+      earL.position.set(-0.34, 0.38, -0.1);
+      const earR = new THREE.Mesh(earGeo, furMat);
+      earR.position.set(0.34, 0.38, -0.1);
+      headGroup.add(earL, earR);
+
+      // 雙眼（Boss 發紅光）
+      const eyeGeo = new THREE.SphereGeometry(isBoss ? 0.09 : 0.065, 8, 8);
+      const eyeL = new THREE.Mesh(eyeGeo, redEyeMat);
+      eyeL.position.set(-0.22, 0.14, 0.41);
+      const eyeR = new THREE.Mesh(eyeGeo, redEyeMat);
+      eyeR.position.set(0.22, 0.14, 0.41);
+      headGroup.add(eyeL, eyeR);
+
+      // 劍齒虎與猛獁象長牙
+      if (species === 'sabertooth' || species === 'mammoth') {
+        const tuskLen = species === 'mammoth' ? 1.15 : 0.55;
+        const tuskGeo = new THREE.ConeGeometry(0.09, tuskLen, 8);
+        tuskGeo.rotateX(species === 'mammoth' ? Math.PI * 0.65 : Math.PI);
+        const tuskMat = new THREE.MeshStandardMaterial({ color: 0xfef9c3 });
+        const tL = new THREE.Mesh(tuskGeo, tuskMat);
+        tL.position.set(-0.24, -0.28, 0.65);
+        const tR = new THREE.Mesh(tuskGeo, tuskMat);
+        tR.position.set(0.24, -0.28, 0.65);
+        headGroup.add(tL, tR);
+      }
+
+      // 第3關 Boss：狂暴雙頭冰熊（加上第二顆頭）
+      if (isBoss && species === 'bear_twins') {
+        headGroup.position.x = -0.36;
+        const secondHead = headGroup.clone();
+        secondHead.position.x = 0.36;
+        root.add(secondHead);
+      }
+
+      // 第5關最終 Boss：極地暴君・皇冠北極熊王（金色皇冠 + 背部冰晶刺 + 鐵甲肩墊）
+      if (species === 'boss_king') {
+        const crownGroup = new THREE.Group();
+        crownGroup.position.set(0, 0.52, 0);
+        const goldMat = new THREE.MeshStandardMaterial({
+          color: 0xfacc15,
+          metalness: 0.7,
+          roughness: 0.2,
+          emissive: 0xca8a04,
+          emissiveIntensity: 0.35
+        });
+        const crownRing = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.28, 0.26, 12), goldMat);
+        crownGroup.add(crownRing);
+        for (let i = 0; i < 6; i++) {
+          const a = (i / 6) * Math.PI * 2;
+          const spike = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.28, 6), goldMat);
+          spike.position.set(Math.cos(a) * 0.26, 0.22, Math.sin(a) * 0.26);
+          crownGroup.add(spike);
+        }
+        headGroup.add(crownGroup);
+
+        // 背部藍色冰晶刺
+        const crystalMat = new THREE.MeshStandardMaterial({
+          color: 0x38bdf8,
+          emissive: 0x0284c7,
+          emissiveIntensity: 0.65
+        });
+        for (let z = -0.5; z <= 0.5; z += 0.45) {
+          const shard = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.75, 6), crystalMat);
+          shard.position.set(0, 1.78, z);
+          shard.rotation.x = -0.25;
+          root.add(shard);
+        }
+      }
+
+      root.add(headGroup);
+      root.scale.set(scale, scale, scale);
+      enableShadows(root);
+
+      root.userData = {
+        legs,
+        headGroup,
+        torso,
+        furMat,
+        baseScale: scale,
+        walkPhase: Math.random() * Math.PI * 2,
+        hitFlashTimer: 0
+      };
+      return root;
+    },
+
+    /**
+     * 6. 中央蒸汽大熔爐 (Central Steam Furnace + 溫暖橘色光環)
+     */
+    createCentralFurnace() {
+      const group = new THREE.Group();
+
+      // 岩石基座
+      const base = new THREE.Mesh(
+        new THREE.CylinderGeometry(2.3, 2.6, 0.55, 18),
+        new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.85 })
+      );
+      base.position.y = 0.28;
+      group.add(base);
+
+      // 鋼鐵爐身
+      const body = new THREE.Mesh(
+        new THREE.CylinderGeometry(1.55, 1.85, 2.6, 16),
+        new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.65, roughness: 0.4 })
+      );
+      body.position.y = 1.65;
+      group.add(body);
+
+      // 銅色加固環與排煙管
+      const brassMat = new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.7, roughness: 0.3 });
+      [1.0, 2.1].forEach(y => {
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(1.72, 0.12, 10, 24), brassMat);
+        ring.rotation.x = Math.PI / 2;
+        ring.position.y = y;
+        group.add(ring);
+      });
+
+      const chimney = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.62, 1.8, 12), brassMat);
+      chimney.position.y = 3.55;
+      group.add(chimney);
+
+      // 內部烈焰核心
+      const fireCoreMat = new THREE.MeshBasicMaterial({ color: 0xf97316 });
+      const fireCore = new THREE.Mesh(new THREE.SphereGeometry(1.22, 12, 12), fireCoreMat);
+      fireCore.position.set(0, 1.25, 0.55);
+      group.add(fireCore);
+
+      // 地面溫暖橘色保護圈
+      const warmRingGeo = new THREE.PlaneGeometry(24, 24);
+      warmRingGeo.rotateX(-Math.PI / 2);
+      const warmRingMat = new THREE.MeshBasicMaterial({
+        map: window.TextureFactory.getWarmRingTexture(),
+        transparent: true,
+        depthWrite: false
+      });
+      const warmRing = new THREE.Mesh(warmRingGeo, warmRingMat);
+      warmRing.position.y = 0.04;
+      group.add(warmRing);
+
+      // 熔爐點光源
+      const fireLight = new THREE.PointLight(0xf97316, 2.2, 26);
+      fireLight.position.set(0, 3.2, 0);
+      group.add(fireLight);
+
+      enableShadows(group);
+      group.userData = { fireCore, warmRing, fireLight };
+      return group;
+    },
+
+    /**
+     * 7. 烤肉架與收銀吧檯攤位 (BBQ Meat Stall)
+     */
+    createBBQStall() {
+      const group = new THREE.Group();
+
+      const table = new THREE.Mesh(
+        new THREE.BoxGeometry(2.8, 1.0, 1.5),
+        new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.8 })
+      );
+      table.position.y = 0.5;
+      group.add(table);
+
+      // 炭火烤爐槽
+      const grill = new THREE.Mesh(
+        new THREE.BoxGeometry(1.5, 0.25, 1.1),
+        new THREE.MeshStandardMaterial({ color: 0x1e293b })
+      );
+      grill.position.set(-0.45, 1.08, 0);
+      const coalGlow = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.3, 0.9),
+        new THREE.MeshBasicMaterial({ color: 0xef4444 })
+      );
+      coalGlow.rotation.x = -Math.PI / 2;
+      coalGlow.position.set(-0.45, 1.22, 0);
+      group.add(grill, coalGlow);
+
+      // 旋轉大烤肉串
+      const spitPivot = new THREE.Group();
+      spitPivot.position.set(-0.45, 1.55, 0);
+      const rod = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.04, 0.04, 1.4, 8),
+        new THREE.MeshStandardMaterial({ color: 0x94a3b8 })
+      );
+      rod.rotation.z = Math.PI / 2;
+      const roastMeat = this.createStackItem('meat');
+      roastMeat.scale.set(1.4, 1.5, 1.4);
+      spitPivot.add(rod, roastMeat);
+      group.add(spitPivot);
+
+      // 紅白條紋遮雨棚
+      const canopy = new THREE.Mesh(
+        new THREE.BoxGeometry(3.1, 0.22, 1.8),
+        new THREE.MeshStandardMaterial({ color: 0xdc2626 })
+      );
+      canopy.position.y = 2.55;
+      group.add(canopy);
+
+      enableShadows(group);
+      group.userData = { spitPivot };
+      return group;
+    },
+
+    /**
+     * 8. 自動機槍防禦塔 (Auto Sentry Turret)
+     */
+    createTurret() {
+      const group = new THREE.Group();
+      const base = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.65, 0.85, 0.8, 12),
+        new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.6 })
+      );
+      base.position.y = 0.4;
+      group.add(base);
+
+      const headPivot = new THREE.Group();
+      headPivot.position.y = 1.05;
+      const turretBox = new THREE.Mesh(
+        new THREE.BoxGeometry(0.75, 0.55, 0.85),
+        new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 })
+      );
+      const barrelGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.95, 8);
+      barrelGeo.rotateX(Math.PI / 2);
+      const barrelMat = new THREE.MeshStandardMaterial({ color: 0x0f172a });
+      const bL = new THREE.Mesh(barrelGeo, barrelMat);
+      bL.position.set(-0.18, 0, 0.65);
+      const bR = new THREE.Mesh(barrelGeo, barrelMat);
+      bR.position.set(0.18, 0, 0.65);
+      headPivot.add(turretBox, bL, bR);
+      group.add(headPivot);
+
+      enableShadows(group);
+      group.userData = { headPivot, fireCooldown: 0 };
+      return group;
+    },
+
+    /**
+     * 9. 第 4 關蒸汽破冰火車頭與鐵軌段
+     */
+    createSteamTrain() {
+      const group = new THREE.Group();
+      const bodyMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.7, roughness: 0.3 });
+      const redMat = new THREE.MeshStandardMaterial({ color: 0xdc2626 });
+      const goldMat = new THREE.MeshStandardMaterial({ color: 0xfacc15 });
+
+      const chassis = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.6, 5.2), redMat);
+      chassis.position.y = 0.6;
+      const boiler = new THREE.Mesh(
+        new THREE.CylinderGeometry(1.05, 1.05, 3.2, 16),
+        bodyMat
+      );
+      boiler.rotation.x = Math.PI / 2;
+      boiler.position.set(0, 1.55, 0.5);
+
+      const cabin = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.1, 1.8), bodyMat);
+      cabin.position.set(0, 1.85, -1.6);
+
+      const smokestack = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.25, 1.1, 12), goldMat);
+      smokestack.position.set(0, 2.65, 1.45);
+
+      // 破冰前鏟
+      const plow = new THREE.Mesh(new THREE.ConeGeometry(1.4, 1.3, 4), goldMat);
+      plow.rotation.x = Math.PI / 2;
+      plow.rotation.z = Math.PI / 4;
+      plow.position.set(0, 0.65, 3.1);
+
+      group.add(chassis, boiler, cabin, smokestack, plow);
+      enableShadows(group);
+      return group;
+    },
+
+    createRailSegment() {
+      const group = new THREE.Group();
+      const woodMat = new THREE.MeshStandardMaterial({ color: 0x78350f });
+      const steelMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8 });
+
+      for (let z = -1.6; z <= 1.6; z += 0.8) {
+        const sleeper = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.14, 0.32), woodMat);
+        sleeper.position.set(0, 0.07, z);
+        group.add(sleeper);
+      }
+      const railL = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.22, 4.0), steelMat);
+      railL.position.set(-0.85, 0.18, 0);
+      const railR = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.22, 4.0), steelMat);
+      railR.position.set(0.85, 0.18, 0);
+      group.add(railL, railR);
+      return group;
+    }
+  };
+
+  window.ModelFactory = ModelFactory;
+})();
+
+</script>
+  <script>
+/**
+ * ==========================================================================
+ * js/levels.js - 依據 32 款寒霜啟示錄廣告資料庫，定義 8 款完全不同機制的手機廣告小遊戲
+ * ==========================================================================
+ */
+
+(function () {
+  const AD_MODES = {
+    1: {
+      id: 1,
+      dbCode: 'CAT-04 · AD-012 / AD-013 / AD-016',
+      name: '① 破屋貼膠帶修窗 ＆ 生火抉擇',
+      hookBanner: '「渣男把母女趕出門！快修補破窗生火，99%的人選錯凍死！」',
+      renderType: '2D_CABIN',
+      initialTemp: -78,
+      steps: [
+        {
+          prompt: '步驟 1/3：暴風雪灌進破窗戶！該用什麼封住窗戶？',
+          targetPos: { x: 270, y: 240 },
+          choices: [
+            { icon: '💦', label: '潑一桶冷水', isCorrect: false, failReason: '往破窗潑冷水瞬間結成冰柱！母女凍成冰雕！' },
+            { icon: '🪵', label: '釘上厚木板', isCorrect: true, tempDelta: 32, successMsg: '🔨 成功釘上木板擋住暴風雪！室內回溫！' },
+            { icon: '🧻', label: '貼衛生紙', isCorrect: false, failReason: '衛生紙一秒被暴風雪吹破！母女失溫凍死！' }
+          ]
+        },
+        {
+          prompt: '步驟 2/3：木板縫隙還在漏寒風！該怎麼密封？',
+          targetPos: { x: 270, y: 240 },
+          choices: [
+            { icon: '🩹', label: '強力封箱膠帶', isCorrect: true, tempDelta: 28, successMsg: '🩹 強力膠帶完美密封縫隙！寒風不再灌入！' },
+            { icon: '🪨', label: '拿石頭砸窗', isCorrect: false, failReason: '你把剛釘好的木板砸爛了！暴風雪瞬間灌滿房間！' },
+            { icon: '🪭', label: '拿扇子搧風', isCorrect: false, failReason: '越搧越冷！溫度狂降到 -100°C！' }
+          ]
+        },
+        {
+          prompt: '步驟 3/3：壁爐裡有乾柴，該用什麼點燃壁爐取暖？',
+          targetPos: { x: 270, y: 500 },
+          choices: [
+            { icon: '🧨', label: '丟整捆炸藥', isCorrect: false, failReason: '💥 轟隆！整間小木屋被炸上天！' },
+            { icon: '🧊', label: '丟大冰塊', isCorrect: false, failReason: '冰塊把木柴弄濕了，母女徹底凍僵！' },
+            { icon: '🔥', label: '火柴與乾柴', isCorrect: true, tempDelta: 45, successMsg: '🔥 壁爐燃起熊熊烈火！破屋逆襲成溫暖豪宅！' }
+          ]
+        }
+      ]
+    },
+
+    2: {
+      id: 2,
+      dbCode: 'CAT-07 · AD-023',
+      name: '② 拔針救人：岩漿與北極熊管線',
+      hookBanner: '「先拔哪根針？拔錯一步北極熊直接撲過來咬死主角！」',
+      renderType: '2D_PIN_PUZZLE',
+      initialTemp: -65
+    },
+
+    3: {
+      id: 3,
+      dbCode: 'CAT-06 · AD-019',
+      name: '③ 雪地跑酷倍增門：射擊獸潮',
+      hookBanner: '「千萬別走錯 -50 紅門！穿過 ×2 倍增門帶小隊射爆北極熊王！」',
+      renderType: '3D_RUNNER',
+      initialTemp: -50
+    },
+
+    4: {
+      id: 4,
+      dbCode: 'CAT-02 · AD-005',
+      name: '④ 除雪小分隊 (Snowbusters 吸塵除雪)',
+      hookBanner: '「強迫症極致解壓！把全圖積雪吸乾抹淨，注意燃料耗盡前快回營火！」',
+      renderType: '3D_SNOWBUSTERS',
+      initialTemp: -60
+    },
+
+    5: {
+      id: 5,
+      dbCode: 'CAT-01/03 · AD-001 / AD-008',
+      name: '⑤ 獵殺北極熊背生肉 ＆ 難民烤肉吧檯',
+      hookBanner: '「打北極熊背生肉疊高高！送到烤肉吧檯餵飽排隊難民賺翻美金！」',
+      renderType: '3D_BEAR_TYCOON',
+      initialTemp: -45
+    },
+
+    6: {
+      id: 6,
+      dbCode: 'CAT-05 · AD-017',
+      name: '⑥ 難民收容審核：選顏值還是選實力？',
+      hookBanner: '「門外排隊求救！小心偽裝成美女的雪怪，放錯人基地直接淪陷！」',
+      renderType: '2D_GATEKEEPER',
+      initialTemp: -55,
+      applicants: [
+        {
+          name: '鋼鐵伐木工・大衛',
+          avatar: '🧔‍♂️',
+          item: '🪵 攜帶 50 根高級松木柴',
+          tempScan: '36.8°C (正常人類)',
+          bio: '「讓我進去！我能幫全村砍柴燒鍋爐！」',
+          shouldApprove: true,
+          wrongReason: '你拒絕了唯一的伐木工，基地沒有木柴生火全員凍死！'
+        },
+        {
+          name: '神祕綠膚女子・莉莉',
+          avatar: '🧟‍♀️',
+          item: '🦴 沾血的生肉塊',
+          tempScan: '-42.0°C (極度異常・寒霜感染者!)',
+          bio: '「好冷喔小哥哥～快開門讓我進去咬一口...我是說取暖～」',
+          shouldApprove: false,
+          wrongReason: '你放進了寒霜喪屍雪怪！她在半夜咬光了所有倖存者！'
+        },
+        {
+          name: '首席鍋爐工程師・老陳',
+          avatar: '👨‍🔧',
+          item: '🧰 蒸汽大熔爐維修工具箱',
+          tempScan: '36.5°C (正常人類)',
+          bio: '「我有大熔爐增壓藍圖，能讓暖氣範圍擴大兩倍！」',
+          shouldApprove: true,
+          wrongReason: '你趕走了鍋爐工程師，大熔爐故障爆炸！'
+        },
+        {
+          name: '披著羊皮的北極熊',
+          avatar: '🐻‍❄️',
+          item: '🐾 偽裝假身分證',
+          tempScan: '40.2°C (大型掠食野獸!)',
+          bio: '「吼嗚～我是普通村民，絕對不是進來吃人的北極熊！」',
+          shouldApprove: false,
+          wrongReason: '你竟然把北極熊放進避難所！全村變成北極熊的宵夜！'
+        }
+      ]
+    },
+
+    7: {
+      id: 7,
+      dbCode: 'CAT-08 · AD-028',
+      name: '⑦ 冰洞深海垂釣 (Fishing Tournament)',
+      hookBanner: '「冰洞下鉤萬丈深淵！避開水雷炸彈，把海底黃金寶箱跟大魚拉上來！」',
+      renderType: '2D_FISHING',
+      initialTemp: -35
+    },
+
+    8: {
+      id: 8,
+      dbCode: 'CAT-07 · AD-024',
+      name: '⑧ 轉螺絲拆鐵板救母女 (Screw Pin Jam)',
+      hookBanner: '「只差最後一顆螺絲就能接通暖氣！99%的人都鎖死卡關！」',
+      renderType: '2D_SCREW_PUZZLE',
+      initialTemp: -85
+    }
+  };
+
+  window.AD_MODES = AD_MODES;
+})();
+
+</script>
+  <script>
+/**
+ * ==========================================================================
+ * js/game.js - 《寒霜啟示錄》8 大真實手機廣告小遊戲合集核心引擎
+ * 依據 32 款資料庫完全重置，每一關皆為獨立且真實還原手機買量廣告的玩法：
+ * Mode 1: 破屋貼膠帶修窗 ＆ 生火抉擇 (2D 室內場景 + 底部三選一道具 + 故意選錯凍成冰雕演出)
+ * Mode 2: 拔針救人：岩漿與北極熊管線 (2D 物理粒子拉栓解謎 Pull the Pin)
+ * Mode 3: 雪地跑酷倍增門：射擊獸潮 (3D 縱向跑道左右滑動過 +10/x2 數值門射北極熊)
+ * Mode 4: 除雪小分隊 Snowbusters (3D 燃料吸塵噴火除雪 + 營火補充燃料 + 解救雪下凍民)
+ * Mode 5: 獵熊背生肉 ＆ 難民烤肉吧檯 (3D 搖桿打熊背生肉疊高高 + 排隊難民買烤肉噴鈔票磚)
+ * Mode 6: 難民收容審核：選顏值還實力？ (2D 避難所守門員體溫探測 + 蓋章放行/驅逐)
+ * Mode 7: 冰洞深海垂釣 (2D 冰釣下鉤左右滑動閃水雷、撈海底寶箱與大魚)
+ * Mode 8: 轉螺絲拆鐵板救母女 (2D Screw Pin Jam 螺絲拆卸移孔讓鐵板物理掉落接通暖氣)
+ * ==========================================================================
+ */
+
+(function () {
+  class WhiteoutAdAnthologyEngine {
+    constructor() {
+      this.currentModeId = 1;
+      this.adTimer = 15;
+      this.clock = new THREE.Clock();
+
+      // DOM & Canvas 參照
+      this.canvas2d = document.getElementById('ad-2d-canvas');
+      this.ctx2d = this.canvas2d.getContext('2d');
+      this.threeContainer = document.getElementById('three-container');
+      this.bottomChoices = document.getElementById('ad-bottom-choices');
+      this.handPointer = document.getElementById('ad-hand-pointer');
+      this.joyOverlay = document.getElementById('joystick-overlay');
+
+      // Three.js 3D 實例 (用於 Mode 3, 4, 5)
+      this.scene = null;
+      this.camera = null;
+      this.renderer = null;
+      this.particles3d = null;
+      this.stageGroup = null;
+
+      // 搖桿與鍵盤輸入
+      this.keys = {};
+      this.joyVec = new THREE.Vector2(0, 0);
+      this.isDragging = false;
+      this.pointerNormX = 0; // 用於跑酷與冰釣左右滑動 (-1 ~ 1)
+
+      // 各模式獨立狀態機
+      this.modeState = {};
+
+      this.initThreeEngine();
+      this.initInputListeners();
+      this.startAdCountdownTimer();
+      this.switchAdMode(1);
+      this.animate();
+    }
+
+    initThreeEngine() {
+      const w = this.threeContainer.clientWidth || 480;
+      const h = this.threeContainer.clientHeight || 720;
+
+      this.scene = new THREE.Scene();
+      this.scene.background = new THREE.Color(0x0d1b2a);
+      this.scene.fog = new THREE.FogExp2(0x162942, 0.018);
+
+      this.camera = new THREE.PerspectiveCamera(48, w / h, 0.1, 140);
+      this.renderer = new THREE.WebGLRenderer({ antialias: true });
+      this.renderer.setSize(w, h);
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      this.renderer.shadowMap.enabled = true;
+      this.threeContainer.appendChild(this.renderer.domElement);
+
+      const hemi = new THREE.HemisphereLight(0xe0f2fe, 0x334155, 0.9);
+      this.scene.add(hemi);
+
+      const dir = new THREE.DirectionalLight(0xfffbeb, 0.95);
+      dir.position.set(14, 28, 18);
+      dir.castShadow = true;
+      this.scene.add(dir);
+
+      const groundGeo = new THREE.PlaneGeometry(120, 120);
+      groundGeo.rotateX(-Math.PI / 2);
+      const groundMat = new THREE.MeshStandardMaterial({
+        map: window.TextureFactory.getSnowGroundTexture(),
+        roughness: 0.85
+      });
+      const ground = new THREE.Mesh(groundGeo, groundMat);
+      ground.receiveShadow = true;
+      this.scene.add(ground);
+
+      this.particles3d = new window.ParticleSystem(this.scene);
+
+      window.addEventListener('resize', () => this.onResize());
+    }
+
+    onResize() {
+      const rect = document.getElementById('game-viewport').getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        this.camera.aspect = rect.width / rect.height;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(rect.width, rect.height);
+      }
+    }
+
+    initInputListeners() {
+      window.addEventListener('keydown', e => {
+        this.keys[e.code] = true;
+        window.SoundManager.init();
+      });
+      window.addEventListener('keyup', e => {
+        this.keys[e.code] = false;
+      });
+
+      const viewport = document.getElementById('game-viewport');
+      const joyKnob = document.getElementById('joy-knob');
+      let startX = 0, startY = 0;
+
+      const getCanvasCoords = e => {
+        const pt = e.touches ? e.touches[0] : e;
+        const rect = this.canvas2d.getBoundingClientRect();
+        return {
+          x: ((pt.clientX - rect.left) / rect.width) * 540,
+          y: ((pt.clientY - rect.top) / rect.height) * 820,
+          rawX: pt.clientX,
+          rawY: pt.clientY,
+          normX: ((pt.clientX - rect.left) / rect.width) * 2 - 1
+        };
+      };
+
+      const onDown = e => {
+        if (e.target.closest('button')) return;
+        window.SoundManager.init();
+        const coords = getCanvasCoords(e);
+        this.isDragging = true;
+        startX = coords.rawX;
+        startY = coords.rawY;
+        this.pointerNormX = Math.max(-1, Math.min(1, coords.normX));
+
+        // 轉發 2D Canvas 點擊事件 (用於 Mode 2 拔針 & Mode 8 轉螺絲)
+        this.handle2DCanvasClick(coords.x, coords.y);
+      };
+
+      const onMove = e => {
+        const coords = getCanvasCoords(e);
+        if (this.isDragging) {
+          this.pointerNormX = Math.max(-1, Math.min(1, coords.normX));
+          const dx = coords.rawX - startX;
+          const dy = coords.rawY - startY;
+          const maxR = 36;
+          const dist = Math.hypot(dx, dy);
+          const clamped = Math.min(dist, maxR);
+          const ang = Math.atan2(dy, dx);
+          if (joyKnob) {
+            joyKnob.style.transform = `translate(calc(-50% + ${Math.cos(ang) * clamped}px), calc(-50% + ${Math.sin(ang) * clamped}px))`;
+          }
+          if (dist > 4) {
+            this.joyVec.set(dx / maxR, dy / maxR);
+            if (this.joyVec.length() > 1) this.joyVec.normalize();
+          } else {
+            this.joyVec.set(0, 0);
+          }
+        }
+      };
+
+      const onUp = () => {
+        this.isDragging = false;
+        this.joyVec.set(0, 0);
+        if (joyKnob) {
+          joyKnob.style.transform = 'translate(-50%, -50%)';
+        }
+      };
+
+      viewport.addEventListener('mousedown', onDown);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
+      viewport.addEventListener('touchstart', onDown, { passive: true });
+      window.addEventListener('touchmove', onMove, { passive: true });
+      window.addEventListener('touchend', onUp);
+    }
+
+    startAdCountdownTimer() {
+      setInterval(() => {
+        this.adTimer = this.adTimer > 1 ? this.adTimer - 1 : 15;
+        const badge = document.getElementById('ad-timer-badge');
+        if (badge) badge.textContent = `${this.adTimer}s`;
+      }, 1000);
+    }
+
+    onClickFakeClose() {
+      this.spawnFloatText(270, 120, '😈 假廣告的 X 是關不掉的！已為您切換下一款廣告！', '#fde047', 15);
+      this.nextAdMode();
+    }
+
+    /**
+     * 切換 8 款不同機制的《寒霜啟示錄》手機廣告小遊戲
+     */
+    switchAdMode(modeId) {
+      const cfg = window.AD_MODES[modeId];
+      if (!cfg) return;
+      this.currentModeId = modeId;
+      this.adTimer = 15;
+
+      // 同步左側資料庫列表與手機上方頁籤狀態
+      document.querySelectorAll('.mode-item, .m-tab').forEach(btn => {
+        btn.classList.toggle('active', Number(btn.dataset.mode) === modeId);
+      });
+
+      document.getElementById('ad-hook-text').textContent = cfg.hookBanner;
+      document.getElementById('footer-mode-name').textContent = `目前模式：${cfg.name}`;
+      document.getElementById('ad-result-modal').classList.add('hidden');
+      document.getElementById('floating-ui-layer').innerHTML = '';
+      this.bottomChoices.classList.add('hidden');
+      this.bottomChoices.innerHTML = '';
+      this.handPointer.classList.add('hidden');
+      this.joyOverlay.classList.add('hidden');
+
+      // 清理 3D 舞台
+      if (this.stageGroup) {
+        this.scene.remove(this.stageGroup);
+      }
+      this.stageGroup = new THREE.Group();
+      this.scene.add(this.stageGroup);
+
+      const is3D = cfg.renderType.startsWith('3D_');
+      this.threeContainer.style.display = is3D ? 'block' : 'none';
+      this.canvas2d.style.display = is3D ? 'none' : 'block';
+      this.onResize();
+
+      // 依模式初始化對應玩法
+      switch (modeId) {
+        case 1:
+          this.initMode1CabinRepair(cfg);
+          break;
+        case 2:
+          this.initMode2PinPuzzle(cfg);
+          break;
+        case 3:
+          this.initMode3MathRunner(cfg);
+          break;
+        case 4:
+          this.initMode4Snowbusters(cfg);
+          break;
+        case 5:
+          this.initMode5BearTycoon(cfg);
+          break;
+        case 6:
+          this.initMode6Gatekeeper(cfg);
+          break;
+        case 7:
+          this.initMode7IceFishing(cfg);
+          break;
+        case 8:
+          this.initMode8ScrewPuzzle(cfg);
+          break;
+      }
+    }
+
+    retryCurrentMode() {
+      this.switchAdMode(this.currentModeId);
+    }
+
+    nextAdMode() {
+      const next = this.currentModeId < 8 ? this.currentModeId + 1 : 1;
+      this.switchAdMode(next);
+    }
+
+    updateThermoBar(tempC, progressPct, labelText) {
+      const emojiEl = document.getElementById('thermo-emoji');
+      const tempEl = document.getElementById('thermo-temp-text');
+      const fillEl = document.getElementById('thermo-progress-fill');
+      const labelEl = document.getElementById('thermo-progress-label');
+      const vignette = document.getElementById('frost-screen-vignette');
+
+      emojiEl.textContent = tempC >= 0 ? '🔥' : '🥶';
+      tempEl.textContent = `tempC>0?'+':''{Math.round(tempC)}°C`;
+      tempEl.style.color = tempC >= 0 ? '#fde047' : '#38bdf8';
+      fillEl.style.width = `${Math.max(0, Math.min(100, progressPct))}%`;
+      labelEl.textContent = labelText;
+
+      if (tempC < -30) {
+        vignette.style.boxShadow = 'inset 0 0 65px rgba(56, 189, 248, 0.78)';
+      } else {
+        vignette.style.boxShadow = 'inset 0 0 25px rgba(251, 146, 60, 0.25)';
+      }
+    }
+
+    showResultModal(isWin, title, desc) {
+      const modal = document.getElementById('ad-result-modal');
+      const card = document.getElementById('result-box-card');
+      const stamp = document.getElementById('result-stamp-text');
+      card.classList.toggle('win', isWin);
+      stamp.textContent = isWin ? 'VICTORY! 逆襲成功' : 'FROZEN! 慘遭凍死';
+      document.getElementById('result-title').textContent = title;
+      document.getElementById('result-desc').textContent = desc;
+      modal.classList.remove('hidden');
+
+      if (isWin) {
+        window.SoundManager.playUnlockFanfare();
+      } else {
+        window.SoundManager.playBossRoar();
+      }
+    }
+
+    spawnFloatText(x, y, text, color = '#fde047', size = 20) {
+      const layer = document.getElementById('floating-ui-layer');
+      const el = document.createElement('div');
+      el.className = 'floating-text';
+      el.textContent = text;
+      el.style.left = `${(x / 540) * 100}%`;
+      el.style.top = `${(y / 820) * 100}%`;
+      el.style.color = color;
+      el.style.fontSize = `${size}px`;
+      layer.appendChild(el);
+      setTimeout(() => el.remove(), 850);
+    }
+
+    /* ========================================================================
+       MODE 1: 破屋貼膠帶修窗 ＆ 生火抉擇 (CAT-04 · AD-012 / AD-013 / AD-016)
+       ======================================================================== */
+    initMode1CabinRepair(cfg) {
+      this.modeState = {
+        stepIdx: 0,
+        temp: cfg.initialTemp,
+        boarded: false,
+        taped: false,
+        fireLit: false,
+        frozenFail: false,
+        explodedFail: false,
+        snowflakes: Array.from({ length: 45 }, () => ({
+          x: Math.random() * 540,
+          y: Math.random() * 820,
+          r: 2 + Math.random() * 4,
+          vx: -2 - Math.random() * 3,
+          vy: 3 + Math.random() * 4
+        }))
+      };
+      this.renderMode1Choices();
+    }
+
+    renderMode1Choices() {
+      const cfg = window.AD_MODES[1];
+      const step = cfg.steps[this.modeState.stepIdx];
+      if (!step) return;
+
+      this.updateThermoBar(
+        this.modeState.temp,
+        ((this.modeState.stepIdx) / 3) * 100 + 15,
+        step.prompt
+      );
+
+      this.bottomChoices.innerHTML = '';
+      this.bottomChoices.classList.remove('hidden');
+
+      step.choices.forEach((ch, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-card-btn';
+        btn.innerHTML = `
+          <div class="choice-icon">${ch.icon}</div>
+          <div class="choice-label">${ch.label}</div>
+        `;
+        btn.onclick = () => this.onSelectMode1Choice(ch);
+        this.bottomChoices.appendChild(btn);
+
+        // 白色手指指向正確或誘導項目
+        if (ch.isCorrect) {
+          this.handPointer.classList.remove('hidden');
+          this.handPointer.style.left = `${18 + idx * 32}%`;
+          this.handPointer.style.bottom = '110px';
+        }
+      });
+    }
+
+    onSelectMode1Choice(choice) {
+      window.SoundManager.init();
+      if (!choice.isCorrect) {
+        this.modeState.frozenFail = true;
+        this.modeState.temp = -120;
+        this.updateThermoBar(-120, 0, '💀 抉擇錯誤！全屋結冰！');
+        this.bottomChoices.classList.add('hidden');
+        this.handPointer.classList.add('hidden');
+        setTimeout(() => {
+          this.showResultModal(false, '🥶 蠢爆了！母女被凍成冰雕！', choice.failReason);
+        }, 700);
+        return;
+      }
+
+      // 選擇正確
+      window.SoundManager.playStackPop();
+      this.modeState.temp += choice.tempDelta;
+      if (this.modeState.stepIdx === 0) this.modeState.boarded = true;
+      if (this.modeState.stepIdx === 1) this.modeState.taped = true;
+      if (this.modeState.stepIdx === 2) this.modeState.fireLit = true;
+
+      this.spawnFloatText(270, 340, choice.successMsg, '#4ade80', 20);
+      this.modeState.stepIdx += 1;
+
+      if (this.modeState.stepIdx >= 3) {
+        this.updateThermoBar(26, 100, '🏠 破屋逆襲成 +26°C 溫暖豪宅！');
+        this.bottomChoices.classList.add('hidden');
+        this.handPointer.classList.add('hidden');
+        setTimeout(() => {
+          this.showResultModal(
+            true,
+            '🎉 破屋修繕逆襲成功！',
+            '你成功用木板與膠帶封住暴風雪並點燃壁爐，母女在溫暖木屋中獲救！'
+          );
+        }, 1100);
+      } else {
+        this.renderMode1Choices();
+      }
+    }
+
+    drawMode1Cabin(dt) {
+      const ctx = this.ctx2d;
+      const st = this.modeState;
+      ctx.clearRect(0, 0, 540, 820);
+
+      // 木屋牆壁背景
+      ctx.fillStyle = st.fireLit ? '#451a03' : '#1e293b';
+      ctx.fillRect(0, 0, 540, 820);
+
+      // 木板牆紋路
+      ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+      ctx.lineWidth = 4;
+      for (let y = 80; y < 650; y += 70) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(540, y);
+        ctx.stroke();
+      }
+
+      // 中央破大窗戶 (可看到外面暴風雪與冰山)
+      ctx.save();
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(130, 95, 280, 210);
+      // 窗外雪山
+      ctx.fillStyle = '#e0f2fe';
+      ctx.beginPath();
+      ctx.moveTo(130, 305);
+      ctx.lineTo(210, 175);
+      ctx.lineTo(295, 305);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(240, 305);
+      ctx.lineTo(340, 155);
+      ctx.lineTo(410, 305);
+      ctx.fill();
+
+      // 若已釘上厚木板
+      if (st.boarded) {
+        ctx.fillStyle = '#92400e';
+        ctx.strokeStyle = '#451a03';
+        ctx.lineWidth = 4;
+        for (let i = 0; i < 3; i++) {
+          ctx.fillRect(122, 110 + i * 64, 296, 48);
+          ctx.strokeRect(122, 110 + i * 64, 296, 48);
+        }
+      }
+
+      // 若已貼上封箱膠帶
+      if (st.taped) {
+        ctx.strokeStyle = '#fde047';
+        ctx.lineWidth = 22;
+        ctx.beginPath();
+        ctx.moveTo(135, 110);
+        ctx.lineTo(405, 290);
+        ctx.moveTo(405, 110);
+        ctx.lineTo(135, 290);
+        ctx.stroke();
+      }
+
+      // 窗框與碎玻璃冰柱
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 12;
+      ctx.strokeRect(130, 95, 280, 210);
+      ctx.restore();
+
+      // 壁爐 (位於下方中央)
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(160, 410, 220, 170);
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(270, 520, 70, Math.PI, 0);
+      ctx.lineTo(340, 580);
+      ctx.lineTo(200, 580);
+      ctx.closePath();
+      ctx.fill();
+
+      // 壁爐內柴火與火焰
+      ctx.fillStyle = '#78350f';
+      ctx.fillRect(225, 545, 90, 22);
+      if (st.fireLit) {
+        const flicker = Math.sin(performance.now() * 0.02) * 10;
+        const grad = ctx.createRadialGradient(270, 525, 10, 270, 515, 75 + flicker);
+        grad.addColorStop(0, '#fef08a');
+        grad.addColorStop(0.5, '#f97316');
+        grad.addColorStop(1, 'rgba(239, 68, 68, 0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(270, 520, 75 + flicker, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 母女角色（站在壁爐兩側發抖或溫暖微笑）
+      const shakeX = st.fireLit ? 0 : (Math.random() - 0.5) * 6;
+      ctx.font = '88px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText(st.frozenFail ? '🧊' : '👩‍👧', 115 + shakeX, 555);
+
+      // 角色頭頂求救對話框
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#000000';
+      ctx.lineWidth = 4;
+      ctx.fillRect(30, 395, 175, 46);
+      ctx.strokeRect(30, 395, 175, 46);
+      ctx.font = '900 16px "Microsoft JhengHei"';
+      ctx.fillStyle = st.fireLit ? '#16a34a' : '#dc2626';
+      ctx.fillText(st.fireLit ? '🥰 終於得救好溫暖！' : '🥶 媽媽我好冷救命！', 117, 424);
+
+      // 若窗戶還沒貼膠帶，暴風雪吹進屋內
+      if (!st.taped) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        st.snowflakes.forEach(s => {
+          s.x += s.vx;
+          s.y += s.vy;
+          if (s.y > 820 || s.x < 0) {
+            s.x = 140 + Math.random() * 260;
+            s.y = 110;
+          }
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+    }
+
+    /* ========================================================================
+       MODE 2: 拔針救人：岩漿與北極熊管線 (CAT-07 · AD-023 Pull the Pin)
+       ======================================================================== */
+    initMode2PinPuzzle(cfg) {
+      this.modeState = {
+        pin1Pulled: false, // 上層：岩漿插銷（正確：先拔讓岩漿流下燙死北極熊並化為暖氣）
+        pin2Pulled: false, // 中層：北極熊柵欄插銷（若先拔這根，北極熊直接掉下去咬死主角）
+        bearAlive: true,
+        lavaY: 165,
+        bearY: 355,
+        resolved: false
+      };
+      this.updateThermoBar(-65, 20, '點擊正確順序的金色拉栓（Pin）救出倖存者！');
+      this.handPointer.classList.remove('hidden');
+      this.handPointer.style.left = '62%';
+      this.handPointer.style.top = '23%';
+    }
+
+    handle2DCanvasClick(x, y) {
+      if (this.currentModeId === 2) {
+        const st = this.modeState;
+        if (st.resolved) return;
+
+        // 點擊上方 Pin 1 (y: 190 ~ 255)
+        if (!st.pin1Pulled && y >= 175 && y <= 265 && x >= 140 && x <= 440) {
+          st.pin1Pulled = true;
+          window.SoundManager.playStackPop();
+          this.spawnFloatText(270, 210, '🔥 岩漿傾瀉而下！', '#f97316', 22);
+          this.handPointer.style.top = '48%';
+        }
+        // 點擊下方 Pin 2 (y: 380 ~ 460)
+        else if (!st.pin2Pulled && y >= 370 && y <= 465 && x >= 140 && x <= 440) {
+          st.pin2Pulled = true;
+          window.SoundManager.playStackPop();
+          this.handPointer.classList.add('hidden');
+        }
+      } else if (this.currentModeId === 8) {
+        this.onClickMode8Screw(x, y);
+      }
+    }
+
+    drawMode2PinPuzzle(dt) {
+      const ctx = this.ctx2d;
+      const st = this.modeState;
+      ctx.clearRect(0, 0, 540, 820);
+
+      // 冰窟背景與中央管道
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, 540, 820);
+
+      ctx.fillStyle = '#1e293b';
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 12;
+      ctx.fillRect(145, 70, 250, 660);
+      ctx.strokeRect(145, 70, 250, 660);
+
+      // 拔針物理邏輯更新
+      if (st.pin1Pulled && st.lavaY < (st.pin2Pulled ? 620 : 370)) {
+        st.lavaY += dt * 280;
+        if (st.lavaY >= 340 && st.bearAlive) {
+          st.bearAlive = false;
+          window.SoundManager.playHitFlesh(true);
+          this.spawnFloatText(270, 350, '🍖 北極熊被滾燙岩漿消滅化為暖流！', '#4ade80', 18);
+        }
+      }
+
+      if (st.pin2Pulled && !st.resolved) {
+        if (st.bearAlive) {
+          // 錯誤順序：北極熊還活著就拔開第 2 根針，北極熊掉下去吃掉主角
+          st.bearY += dt * 340;
+          if (st.bearY >= 610) {
+            st.resolved = true;
+            this.showResultModal(
+              false,
+              '🐻 拔錯針了！北極熊撲倒倖存者！',
+              '應該先拔上方第 1 根插銷用岩漿消滅北極熊，再拔第 2 根插銷導引暖氣！'
+            );
+          }
+        } else if (st.lavaY >= 610) {
+          // 正確順序：暖流抵達底層溫暖主角
+          st.resolved = true;
+          this.updateThermoBar(25, 100, '🔥 暖流注入底層房間！獲救成功！');
+          setTimeout(() => {
+            this.showResultModal(
+              true,
+              '🎉 拔針解謎完美通關！',
+              '成功利用上層熔岩消滅北極熊並將熱能導入底層冰庫，解救凍僵的主角！'
+            );
+          }, 600);
+        }
+      }
+
+      // 繪製上層岩漿 / 暖流塊
+      const lavaGrad = ctx.createLinearGradient(155, st.lavaY - 70, 385, st.lavaY + 30);
+      lavaGrad.addColorStop(0, '#f97316');
+      lavaGrad.addColorStop(1, '#fde047');
+      ctx.fillStyle = lavaGrad;
+      ctx.fillRect(155, st.lavaY - 75, 230, 95);
+      ctx.font = '900 22px Arial';
+      ctx.fillStyle = '#000';
+      ctx.textAlign = 'center';
+      ctx.fillText('🔥 高溫熔岩暖流', 270, st.lavaY - 20);
+
+      // 繪製中層飢餓北極熊
+      if (st.bearAlive) {
+        ctx.font = '76px Arial';
+        ctx.fillText('🐻‍❄️', 270, st.bearY + 25);
+        ctx.font = '900 16px Arial';
+        ctx.fillStyle = '#f87171';
+        ctx.fillText('飢餓北極熊 Lv.50', 270, st.bearY - 40);
+      } else {
+        ctx.font = '54px Arial';
+        ctx.fillText('🥩', 270, 365);
+      }
+
+      // 繪製底層受困發抖的主角
+      ctx.font = '78px Arial';
+      ctx.fillText(st.resolved && !st.bearAlive ? '🤩' : '🥶', 270, 665);
+      ctx.font = '900 18px Arial';
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillText('受困倖存者 (-65°C)', 270, 712);
+
+      // 繪製金色金屬插銷 Pin 1 與 Pin 2
+      const drawPin = (y, pulled, label) => {
+        const offsetX = pulled ? 230 : 0;
+        ctx.fillStyle = '#facc15';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 5;
+        ctx.fillRect(135 + offsetX, y - 10, 295, 20);
+        ctx.strokeRect(135 + offsetX, y - 10, 295, 20);
+        // 拉環圓柄
+        ctx.beginPath();
+        ctx.arc(445 + offsetX, y, 26, 0, Math.PI * 2);
+        ctx.fillStyle = '#eab308';
+        ctx.fill();
+        ctx.stroke();
+        ctx.font = '900 15px Arial';
+        ctx.fillStyle = '#000';
+        ctx.fillText(label, 270 + offsetX, y + 5);
+      };
+
+      drawPin(225, st.pin1Pulled, '👈 點擊抽開插銷 ①');
+      drawPin(420, st.pin2Pulled, '👈 點擊抽開插銷 ②');
+    }
+
+    /* ========================================================================
+       MODE 3: 雪地跑酷倍增門：射擊獸潮 (CAT-06 · AD-019 Math Gate Runner)
+       ======================================================================== */
+    initMode3MathRunner(cfg) {
+      this.camera.position.set(0, 11.5, 13.5);
+      this.camera.lookAt(0, 1, -8);
+
+      const squadGroup = new THREE.Group();
+      const leader = window.ModelFactory.createCharacter({ coatColor: 0x0284c7 });
+      leader.rotation.y = Math.PI;
+      squadGroup.add(leader);
+      this.stageGroup.add(squadGroup);
+
+      // 建立跑道兩側冰牆與數值門
+      const gates = [];
+      const gateRows = [
+        { z: -12, left: { text: '+5 獵人', op: 'add', val: 5, good: true }, right: { text: '-3 凍傷', op: 'sub', val: 3, good: false } },
+        { z: -26, left: { text: '÷2 減半', op: 'div', val: 2, good: false }, right: { text: '×2 倍增', op: 'mul', val: 2, good: true } },
+        { z: -40, left: { text: '+10 火力', op: 'add', val: 10, good: true }, right: { text: '-8 陷阱', op: 'sub', val: 8, good: false } }
+      ];
+
+      gateRows.forEach(row => {
+        [-2.4, 2.4].forEach((gx, idx) => {
+          const info = idx === 0 ? row.left : row.right;
+          const color = info.good ? 'rgba(14, 165, 233, 0.85)' : 'rgba(220, 38, 38, 0.85)';
+          const mat = new THREE.MeshBasicMaterial({
+            map: window.TextureFactory.createGateTexture(info.text, info.good ? '增益光門' : '危險紅門', color),
+            transparent: true,
+            side: THREE.DoubleSide
+          });
+          const mesh = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 3.6), mat);
+          mesh.position.set(gx, 1.8, row.z);
+          this.stageGroup.add(mesh);
+          gates.push({ mesh, x: gx, z: row.z, info, triggered: false });
+        });
+      });
+
+      // 終點北極熊王與獸群
+      const bossMesh = window.ModelFactory.createBeast('boss_king', true);
+      bossMesh.position.set(0, 0, -54);
+      this.stageGroup.add(bossMesh);
+
+      this.modeState = {
+        squadGroup,
+        squadCount: 1,
+        playerX: 0,
+        runZ: 4,
+        bullets: [],
+        shootTimer: 0,
+        gates,
+        bossMesh,
+        bossHp: 450,
+        bossMaxHp: 450,
+        finished: false
+      };
+
+      this.updateThermoBar(-50, 30, '左右滑動控制小隊穿過藍色倍增門，射爆終點熊王！');
+    }
+
+    updateMode3MathRunner(dt) {
+      const st = this.modeState;
+      if (st.finished) return;
+
+      // 左右滑動或 A/D 控制橫向位置
+      if (this.keys['KeyA'] || this.keys['ArrowLeft']) this.pointerNormX -= dt * 1.8;
+      if (this.keys['KeyD'] || this.keys['ArrowRight']) this.pointerNormX += dt * 1.8;
+      this.pointerNormX = Math.max(-0.9, Math.min(0.9, this.pointerNormX));
+
+      st.playerX += (this.pointerNormX * 4.2 - st.playerX) * Math.min(1, dt * 12);
+      st.runZ -= dt * 8.2;
+      st.squadGroup.position.set(st.playerX, 0, st.runZ);
+
+      // 鏡頭跟隨跑道前進
+      this.camera.position.set(st.playerX * 0.3, 11.5, st.runZ + 12.5);
+      this.camera.lookAt(0, 1.2, st.runZ - 10);
+
+      // 自動連發子彈射向終點北極熊王
+      st.shootTimer -= dt;
+      if (st.shootTimer <= 0) {
+        st.shootTimer = 0.16;
+        const bulletCount = Math.min(7, Math.ceil(st.squadCount / 3));
+        for (let i = 0; i < bulletCount; i++) {
+          const bMesh = new THREE.Mesh(
+            new THREE.SphereGeometry(0.18, 6, 6),
+            new THREE.MeshBasicMaterial({ color: 0xfde047 })
+          );
+          bMesh.position.set(
+            st.playerX + (i - (bulletCount - 1) / 2) * 0.45,
+            1.2,
+            st.runZ - 0.8
+          );
+          this.stageGroup.add(bMesh);
+          st.bullets.push(bMesh);
+        }
+      }
+
+      // 更新子彈擊中北極熊王
+      for (let i = st.bullets.length - 1; i >= 0; i--) {
+        const b = st.bullets[i];
+        b.position.z -= dt * 28;
+        if (b.position.z <= st.bossMesh.position.z + 2.2) {
+          this.stageGroup.remove(b);
+          st.bullets.splice(i, 1);
+          st.bossHp = Math.max(0, st.bossHp - (4 + st.squadCount * 0.8));
+          this.particles3d.emitBurst(st.bossMesh.position, { count: 2, color: 0xef4444, size: 0.2 });
+
+          if (st.bossHp <= 0 && !st.finished) {
+            st.finished = true;
+            this.showResultModal(
+              true,
+              `🎉 小隊人數暴增至 ${st.squadCount} 人！秒殺熊王！`,
+              '你精準穿過所有藍色倍增門，帶領火槍小隊瞬間集火擊潰極地北極熊王！'
+            );
+            return;
+          }
+        }
+      }
+
+      // 檢查穿過數值門
+      st.gates.forEach(g => {
+        if (!g.triggered && Math.abs(st.runZ - g.z) < 0.9 && Math.abs(st.playerX - g.x) < 2.3) {
+          g.triggered = true;
+          g.mesh.visible = false;
+          if (g.info.op === 'add') st.squadCount += g.info.val;
+          if (g.info.op === 'mul') st.squadCount *= g.info.val;
+          if (g.info.op === 'sub') st.squadCount = Math.max(1, st.squadCount - g.info.val);
+          if (g.info.op === 'div') st.squadCount = Math.max(1, Math.floor(st.squadCount / g.info.val));
+
+          window.SoundManager.playStackPop();
+          this.spawnFloatText(270, 320, `${g.info.text} (當前隊伍: ${st.squadCount}人)`, g.info.good ? '#4ade80' : '#ef4444', 22);
+          this.rebuildRunnerSquadVisuals();
+        }
+      });
+
+      this.updateThermoBar(-50, ((4 - st.runZ) / 58) * 100, `小隊人數: ${st.squadCount} 人 | 熊王血量: ${Math.ceil(st.bossHp)}`);
+
+      // 若跑到終點還沒打死熊王
+      if (st.runZ <= -50 && !st.finished) {
+        st.finished = true;
+        if (st.bossHp <= 0) {
+          this.showResultModal(true, '🎉 成功射爆北極熊王！', '火力全開突破極寒跑道！');
+        } else {
+          this.showResultModal(
+            false,
+            '🐻 火力不足！小隊被北極熊王團滅！',
+            '提示：請左右滑動穿過藍色「+5 / ×2」倍增門避開紅色減益門！'
+          );
+        }
+      }
+    }
+
+    rebuildRunnerSquadVisuals() {
+      const st = this.modeState;
+      while (st.squadGroup.children.length > 1) {
+        st.squadGroup.remove(st.squadGroup.children[st.squadGroup.children.length - 1]);
+      }
+      const visualFollowers = Math.min(14, st.squadCount - 1);
+      for (let i = 0; i < visualFollowers; i++) {
+        const clone = window.ModelFactory.createCharacter({ coatColor: 0x16a34a });
+        clone.scale.set(0.78, 0.78, 0.78);
+        clone.rotation.y = Math.PI;
+        const row = Math.floor(i / 4) + 1;
+        const col = (i % 4) - 1.5;
+        clone.position.set(col * 0.85, 0, row * 0.9);
+        st.squadGroup.add(clone);
+      }
+    }
+
+    /* ========================================================================
+       MODE 4: 除雪小分隊 Snowbusters (CAT-02 · AD-005 燃料吸塵除雪救人)
+       ======================================================================== */
+    initMode4Snowbusters(cfg) {
+      this.joyOverlay.classList.remove('hidden');
+      const hero = window.ModelFactory.createCharacter({ coatColor: 0xf97316 });
+      const flamer = window.ModelFactory.createWeapon(3);
+      hero.userData.weaponMount.add(flamer);
+      this.stageGroup.add(hero);
+
+      // 中央營火補充站
+      const campfire = window.ModelFactory.createCentralFurnace();
+      campfire.scale.set(0.75, 0.75, 0.75);
+      campfire.position.set(0, 0, 5);
+      this.stageGroup.add(campfire);
+
+      // 厚重白色積雪方塊網格 (60 塊) 與 3 名埋在雪下的凍僵居民
+      const snowVoxels = [];
+      const snowGeo = new THREE.BoxGeometry(1.9, 1.2, 1.9);
+      for (let r = 0; r < 6; r++) {
+        for (let c = 0; c < 8; c++) {
+          const sx = -7.0 + c * 2.0;
+          const sz = 0.5 - r * 2.0;
+          const mesh = new THREE.Mesh(
+            snowGeo,
+            new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.4 })
+          );
+          mesh.position.set(sx, 0.6, sz);
+          this.stageGroup.add(mesh);
+          snowVoxels.push({ mesh, x: sx, z: sz, cleared: false });
+        }
+      }
+
+      const buriedVictims = [
+        { x: -4.5, z: -3.5 },
+        { x: 4.5, z: -4.5 },
+        { x: 0, z: -8.5 }
+      ].map(pos => {
+        const npc = window.ModelFactory.createCharacter({ isFrozenVictim: true });
+        npc.position.set(pos.x, 0, pos.z);
+        this.stageGroup.add(npc);
+        return { mesh: npc, x: pos.x, z: pos.z, rescued: false };
+      });
+
+      this.modeState = {
+        hero,
+        pos: new THREE.Vector3(0, 0, 4.5),
+        fuel: 100,
+        snowVoxels,
+        buriedVictims,
+        rescuedCount: 0,
+        finished: false
+      };
+    }
+
+    updateMode4Snowbusters(dt) {
+      const st = this.modeState;
+      if (st.finished) return;
+
+      let mx = this.joyVec.x;
+      let mz = this.joyVec.y;
+      if (this.keys['KeyW'] || this.keys['ArrowUp']) mz -= 1;
+      if (this.keys['KeyS'] || this.keys['ArrowDown']) mz += 1;
+      if (this.keys['KeyA'] || this.keys['ArrowLeft']) mx -= 1;
+      if (this.keys['KeyD'] || this.keys['ArrowRight']) mx += 1;
+
+      if (Math.hypot(mx, mz) > 0.05) {
+        const len = Math.hypot(mx, mz);
+        mx /= len;
+        mz /= len;
+        st.pos.x = Math.max(-8.5, Math.min(8.5, st.pos.x + mx * 7.2 * dt));
+        st.pos.z = Math.max(-11.5, Math.min(7.5, st.pos.z + mz * 7.2 * dt));
+        st.hero.rotation.y = Math.atan2(mx, mz);
+      }
+      st.hero.position.copy(st.pos);
+
+      this.camera.position.set(st.pos.x * 0.5, 16.5, st.pos.z + 12.5);
+      this.camera.lookAt(st.pos.x * 0.4, 0, st.pos.z - 2);
+
+      // 靠近營火 (0, 5) 瞬間補滿燃料，離開則消耗燃料
+      if (Math.hypot(st.pos.x, st.pos.z - 5) < 3.4) {
+        st.fuel = Math.min(100, st.fuel + dt * 65);
+      } else {
+        st.fuel = Math.max(0, st.fuel - dt * 7.5);
+      }
+
+      // 吸塵/噴火清除周圍積雪方塊
+      let clearedAny = false;
+      st.snowVoxels.forEach(sv => {
+        if (!sv.cleared && Math.hypot(st.pos.x - sv.x, st.pos.z - sv.z) < 2.6) {
+          sv.cleared = true;
+          sv.mesh.visible = false;
+          clearedAny = true;
+          this.particles3d.emitBurst(new THREE.Vector3(sv.x, 0.5, sv.z), { count: 4, color: 0xffffff, size: 0.22 });
+        }
+      });
+      if (clearedAny) {
+        window.SoundManager.playFlameWhoosh();
+      }
+
+      // 解救雪下凍僵居民
+      st.buriedVictims.forEach(v => {
+        if (!v.rescued && Math.hypot(st.pos.x - v.x, st.pos.z - v.z) < 2.2) {
+          v.rescued = true;
+          st.rescuedCount += 1;
+          st.fuel = Math.min(100, st.fuel + 35);
+          v.mesh.userData.bodyMat.color.setHex(0x4ade80);
+          window.SoundManager.playUnlockFanfare();
+          this.spawnFloatText(270, 300, `🙌 解救倖存者 (${st.rescuedCount}/3)！燃料+35%`, '#4ade80', 20);
+        }
+      });
+
+      this.updateThermoBar(
+        Math.round(-60 + st.fuel * 0.8),
+        st.fuel,
+        `除雪燃料: ${Math.ceil(st.fuel)}% | 已解救居民: ${st.rescuedCount}/3`
+      );
+
+      if (st.rescuedCount >= 3 && !st.finished) {
+        st.finished = true;
+        this.showResultModal(
+          true,
+          '🧹 除雪小分隊完美救援！',
+          '你成功清除厚重積雪並救出所有受困居民！這正是官方後來轉正實裝的《除雪小分隊》玩法！'
+        );
+      } else if (st.fuel <= 0 && !st.finished) {
+        st.finished = true;
+        this.showResultModal(
+          false,
+          '🥶 除雪機燃料耗盡！凍死在雪堆中！',
+          '經典廣告死法：貪著吸雪忘了回下方營火補充燃料！'
+        );
+      }
+    }
+
+    /* ========================================================================
+       MODE 5: 獵殺北極熊背生肉 ＆ 難民烤肉吧檯 (CAT-01/03 · AD-001 / AD-008)
+       ======================================================================== */
+    initMode5BearTycoon(cfg) {
+      this.joyOverlay.classList.remove('hidden');
+      const hero = window.ModelFactory.createCharacter({ coatColor: 0x0284c7 });
+      hero.userData.weaponMount.add(window.ModelFactory.createWeapon(2));
+      this.stageGroup.add(hero);
+
+      // 烤肉吧檯與排隊飢餓難民
+      const stall = window.ModelFactory.createBBQStall();
+      stall.position.set(3.5, 0, 3.5);
+      this.stageGroup.add(stall);
+
+      const queueNpcs = [0, 1, 2].map(i => {
+        const npc = window.ModelFactory.createCharacter({ isFrozenVictim: true });
+        npc.position.set(3.5, 0, 6.2 + i * 1.4);
+        npc.rotation.y = Math.PI;
+        this.stageGroup.add(npc);
+        return npc;
+      });
+
+      // 3 隻北極熊
+      const bears = [
+        { x: -4.2, z: -4.5 },
+        { x: 0, z: -6.5 },
+        { x: 4.2, z: -4.5 }
+      ].map(b => {
+        const mesh = window.ModelFactory.createBeast('bear', false);
+        mesh.position.set(b.x, 0, b.z);
+        this.stageGroup.add(mesh);
+        return { mesh, x: b.x, z: b.z, hp: 100 };
+      });
+
+      this.modeState = {
+        hero,
+        pos: new THREE.Vector3(0, 0, 2.5),
+        meatStack: [],
+        bears,
+        stall,
+        queueNpcs,
+        servedCount: 0,
+        cashEarned: 0,
+        atkTimer: 0,
+        finished: false
+      };
+      this.updateThermoBar(-45, 20, '打北極熊背起生肉疊高高，送到右下烤肉攤餵飽 3 名難民！');
+    }
+
+    updateMode5BearTycoon(dt) {
+      const st = this.modeState;
+      if (st.finished) return;
+
+      let mx = this.joyVec.x;
+      let mz = this.joyVec.y;
+      if (this.keys['KeyW'] || this.keys['ArrowUp']) mz -= 1;
+      if (this.keys['KeyS'] || this.keys['ArrowDown']) mz += 1;
+      if (this.keys['KeyA'] || this.keys['ArrowLeft']) mx -= 1;
+      if (this.keys['KeyD'] || this.keys['ArrowRight']) mx += 1;
+
+      if (Math.hypot(mx, mz) > 0.05) {
+        const len = Math.hypot(mx, mz);
+        mx /= len;
+        mz /= len;
+        st.pos.x = Math.max(-7.5, Math.min(7.5, st.pos.x + mx * 7.5 * dt));
+        st.pos.z = Math.max(-9.5, Math.min(7.5, st.pos.z + mz * 7.5 * dt));
+        st.hero.rotation.y = Math.atan2(mx, mz);
+      }
+      st.hero.position.copy(st.pos);
+
+      // 更新背後生肉塔彈簧搖晃
+      const packPos = new THREE.Vector3();
+      st.hero.userData.packFrame.getWorldPosition(packPos);
+      st.meatStack.forEach((m, idx) => {
+        m.position.x += (packPos.x - m.position.x) * Math.min(1, dt * (20 - idx * 1.5));
+        m.position.z += (packPos.z - m.position.z) * Math.min(1, dt * (20 - idx * 1.5));
+        m.position.y = packPos.y + idx * 0.22;
+        m.rotation.y = st.hero.rotation.y;
+      });
+
+      this.camera.position.set(st.pos.x * 0.4, 16, st.pos.z + 12);
+      this.camera.lookAt(st.pos.x * 0.3, 0, st.pos.z - 1.5);
+
+      // 靠近北極熊揮斧砍殺並把生肉疊上背架
+      st.atkTimer -= dt;
+      st.bears.forEach(b => {
+        if (b.hp > 0 && Math.hypot(st.pos.x - b.x, st.pos.z - b.z) < 2.8 && st.atkTimer <= 0) {
+          st.atkTimer = 0.32;
+          b.hp -= 50;
+          window.SoundManager.playHitFlesh(true);
+          this.particles3d.emitBurst(new THREE.Vector3(b.x, 1, b.z), { count: 7, color: 0xef4444 });
+          if (b.hp <= 0) {
+            b.mesh.visible = false;
+            for (let k = 0; k < 2; k++) {
+              const meat = window.ModelFactory.createStackItem('meat');
+              meat.position.copy(packPos);
+              this.stageGroup.add(meat);
+              st.meatStack.push(meat);
+              window.SoundManager.playStackPop();
+            }
+            this.spawnFloatText(270, 280, '🥩 獵殺北極熊！生肉 +2 疊上背！', '#f87171', 20);
+          }
+        }
+      });
+
+      // 靠近烤肉吧檯交付生肉給排隊難民換美金
+      if (st.meatStack.length > 0 && Math.hypot(st.pos.x - 3.5, st.pos.z - 3.5) < 3.0) {
+        const m = st.meatStack.pop();
+        this.stageGroup.remove(m);
+        st.servedCount += 1;
+        st.cashEarned += 150;
+        window.SoundManager.playCoinDing();
+        this.spawnFloatText(340, 420, '🍖 難民吃飽！+$150 美金！', '#4ade80', 22);
+
+        if (st.queueNpcs[st.servedCount - 1]) {
+          st.queueNpcs[st.servedCount - 1].userData.bodyMat.color.setHex(0xf97316);
+        }
+        if (st.servedCount >= 4 && !st.finished) {
+          st.finished = true;
+          this.showResultModal(
+            true,
+            '💵 暴風雪烤肉大亨致富成功！',
+            '你靠獵殺北極熊背生肉供應難民吧檯，賺進大把美金鈔票磚！'
+          );
+        }
+      }
+
+      this.updateThermoBar(-45, (st.servedCount / 4) * 100, `背上生肉: ${st.meatStack.length} | 已餵飽難民: st.servedCount/4(${st.cashEarned})`);
+    }
+
+    /* ========================================================================
+       MODE 6: 難民收容審核：選顏值還是選實力？ (CAT-05 · AD-017 Gatekeeper)
+       ======================================================================== */
+    initMode6Gatekeeper(cfg) {
+      this.modeState = {
+        idx: 0,
+        scannerActive: true
+      };
+      this.renderMode6Buttons();
+    }
+
+    renderMode6Buttons() {
+      const cfg = window.AD_MODES[6];
+      const app = cfg.applicants[this.modeState.idx];
+      if (!app) return;
+
+      this.updateThermoBar(
+        -55,
+        (this.modeState.idx / cfg.applicants.length) * 100,
+        `審核進度: ${this.modeState.idx + 1} / ${cfg.applicants.length} (請看紅外線體溫計)`
+      );
+
+      this.bottomChoices.innerHTML = `
+        <button class="choice-card-btn" style="border-color:#dc2626;" id="btn-reject">
+          <div class="choice-icon">🚫</div>
+          <div class="choice-label">紅燈驅逐</div>
+        </button>
+        <button class="choice-card-btn" style="border-color:#16a34a;" id="btn-approve">
+          <div class="choice-icon">✅</div>
+          <div class="choice-label">綠燈放行</div>
+        </button>
+      `;
+      this.bottomChoices.classList.remove('hidden');
+
+      document.getElementById('btn-reject').onclick = () => this.onJudgeApplicant(false);
+      document.getElementById('btn-approve').onclick = () => this.onJudgeApplicant(true);
+    }
+
+    onJudgeApplicant(approved) {
+      const cfg = window.AD_MODES[6];
+      const app = cfg.applicants[this.modeState.idx];
+      if (!app) return;
+
+      if (approved !== app.shouldApprove) {
+        this.bottomChoices.classList.add('hidden');
+        this.showResultModal(false, '🚨 審核失誤！避難所淪陷！', app.wrongReason);
+        return;
+      }
+
+      window.SoundManager.playCoinDing();
+      this.spawnFloatText(270, 360, '✔ 判定正確！', '#4ade80', 24);
+      this.modeState.idx += 1;
+
+      if (this.modeState.idx >= cfg.applicants.length) {
+        this.bottomChoices.classList.add('hidden');
+        this.showResultModal(
+          true,
+          '🛡️ 避難所守門員完美通關！',
+          '你識破了偽裝成美女的雪怪與北極熊，並收容了伐木工與鍋爐工程師！'
+        );
+      } else {
+        this.renderMode6Buttons();
+      }
+    }
+
+    drawMode6Gatekeeper() {
+      const ctx = this.ctx2d;
+      const cfg = window.AD_MODES[6];
+      const app = cfg.applicants[this.modeState.idx];
+      ctx.clearRect(0, 0, 540, 820);
+
+      // 鋼鐵哨所背景與防爆玻璃窗
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, 540, 820);
+
+      ctx.fillStyle = '#1e293b';
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 10;
+      ctx.fillRect(55, 65, 430, 520);
+      ctx.strokeRect(55, 65, 430, 520);
+
+      if (!app) return;
+
+      // 申請人頭像與對話
+      ctx.font = '115px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText(app.avatar, 270, 235);
+
+      ctx.font = '900 24px "Microsoft JhengHei"';
+      ctx.fillStyle = '#fde047';
+      ctx.fillText(app.name, 270, 305);
+
+      // 紅外線體溫探測儀資訊卡
+      ctx.fillStyle = '#020617';
+      ctx.strokeStyle = app.shouldApprove ? '#22c55e' : '#ef4444';
+      ctx.lineWidth = 4;
+      ctx.fillRect(85, 335, 370, 145);
+      ctx.strokeRect(85, 335, 370, 145);
+
+      ctx.font = '900 18px "Microsoft JhengHei"';
+      ctx.fillStyle = '#e2e8f0';
+      ctx.fillText(`攜帶物資：${app.item}`, 270, 375);
+
+      ctx.fillStyle = app.shouldApprove ? '#4ade80' : '#f87171';
+      ctx.fillText(`🌡️ 紅外線體溫：${app.tempScan}`, 270, 415);
+
+      ctx.font = '700 15px "Microsoft JhengHei"';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillText(app.bio, 270, 455);
+    }
+
+    /* ========================================================================
+       MODE 7: 冰洞深海垂釣 (CAT-08 · AD-028 Ice Hole Fishing)
+       ======================================================================== */
+    initMode7IceFishing() {
+      const items = [
+        { x: 160, y: 340, emoji: '🐟', val: 100, isBomb: false, caught: false },
+        { x: 370, y: 420, emoji: '💣', val: 0, isBomb: true, caught: false },
+        { x: 240, y: 510, emoji: '🐠', val: 150, isBomb: false, caught: false },
+        { x: 150, y: 600, emoji: '💣', val: 0, isBomb: true, caught: false },
+        { x: 350, y: 650, emoji: '🤿', val: 300, isBomb: false, caught: false, label: '受困潛水員' },
+        { x: 260, y: 730, emoji: '👑', val: 500, isBomb: false, caught: false, label: '深海黃金寶箱' }
+      ];
+      this.modeState = {
+        hookX: 270,
+        hookY: 160,
+        goingDown: true,
+        score: 0,
+        items,
+        finished: false
+      };
+      this.updateThermoBar(-35, 30, '左右滑動控制魚鉤避開水雷炸彈 💣，勾起潛水員與黃金寶箱！');
+    }
+
+    drawMode7IceFishing(dt) {
+      const ctx = this.ctx2d;
+      const st = this.modeState;
+      ctx.clearRect(0, 0, 540, 820);
+
+      // 冰面與深海漸層
+      ctx.fillStyle = '#e0f2fe';
+      ctx.fillRect(0, 0, 540, 140);
+      const seaGrad = ctx.createLinearGradient(0, 140, 0, 820);
+      seaGrad.addColorStop(0, '#0284c7');
+      seaGrad.addColorStop(1, '#0f172a');
+      ctx.fillStyle = seaGrad;
+      ctx.fillRect(0, 140, 540, 680);
+
+      // 冰釣小人
+      ctx.font = '64px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('🎣', 270, 115);
+
+      if (!st.finished) {
+        const targetX = 270 + this.pointerNormX * 210;
+        st.hookX += (targetX - st.hookX) * Math.min(1, dt * 10);
+
+        if (st.goingDown) {
+          st.hookY += dt * 175;
+          if (st.hookY >= 760) st.goingDown = false;
+        } else {
+          st.hookY -= dt * 220;
+          if (st.hookY <= 165) {
+            st.finished = true;
+            this.showResultModal(
+              true,
+              `🎣 冰洞垂釣大豐收！總價值 $${st.score}`,
+              '成功避開深海水雷並將海底寶箱與潛水員全數拉上冰面！'
+            );
+          }
+        }
+      }
+
+      // 魚線與魚鉤
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(270, 120);
+      ctx.lineTo(st.hookX, st.hookY);
+      ctx.stroke();
+
+      ctx.font = '38px Arial';
+      ctx.fillText('🪝', st.hookX, st.hookY + 18);
+
+      // 海底魚群、寶箱與水雷碰撞判定
+      st.items.forEach(it => {
+        if (it.caught) {
+          it.x = st.hookX;
+          it.y = st.hookY + 28;
+        } else if (!st.finished && Math.hypot(st.hookX - it.x, st.hookY - it.y) < 38) {
+          if (it.isBomb) {
+            st.finished = true;
+            this.showResultModal(false, '💥 魚鉤撞到深海水雷爆炸！', '魚線被炸斷了！請左右滑動避開黑色水雷 💣！');
+          } else {
+            it.caught = true;
+            st.score += it.val;
+            window.SoundManager.playCoinDing();
+            this.spawnFloatText(it.x, it.y, `+$${it.val}`, '#fde047', 22);
+            this.updateThermoBar(-35, Math.min(100, (st.score / 800) * 100), `漁獲總價值: $${st.score}`);
+          }
+        }
+        ctx.font = '46px Arial';
+        ctx.fillText(it.emoji, it.x, it.y);
+      });
+    }
+
+    /* ========================================================================
+       MODE 8: 轉螺絲拆鐵板救母女 (CAT-07 · AD-024 Screw Pin Jam)
+       ======================================================================== */
+    initMode8ScrewPuzzle() {
+      this.modeState = {
+        bolts: [
+          { id: 0, x: 175, y: 360, removed: false },
+          { id: 1, x: 365, y: 360, removed: false },
+          { id: 2, x: 270, y: 470, removed: false }
+        ],
+        plateY: 390,
+        plateVelocity: 0,
+        resolved: false
+      };
+      this.updateThermoBar(-85, 15, '點擊拔除鐵板上的 3 顆金色螺絲，讓鐵板掉落接通暖氣！');
+      this.handPointer.classList.remove('hidden');
+      this.handPointer.style.left = '34%';
+      this.handPointer.style.top = '45%';
+    }
+
+    onClickMode8Screw(x, y) {
+      const st = this.modeState;
+      if (st.resolved) return;
+
+      st.bolts.forEach(b => {
+        if (!b.removed && Math.hypot(x - b.x, y - b.y) < 48) {
+          b.removed = true;
+          window.SoundManager.playStackPop();
+          this.spawnFloatText(b.x, b.y, '🔩 拆卸螺絲！', '#fde047', 20);
+        }
+      });
+
+      const nextBolt = st.bolts.find(b => !b.removed);
+      if (nextBolt) {
+        this.handPointer.style.left = `${(nextBolt.x / 540) * 100}%`;
+        this.handPointer.style.top = `${(nextBolt.y / 820) * 100}%`;
+      } else {
+        this.handPointer.classList.add('hidden');
+      }
+    }
+
+    drawMode8ScrewPuzzle(dt) {
+      const ctx = this.ctx2d;
+      const st = this.modeState;
+      ctx.clearRect(0, 0, 540, 820);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, 540, 820);
+
+      // 暖氣出風口 (被鐵板擋住)
+      const allRemoved = st.bolts.every(b => b.removed);
+      ctx.fillStyle = allRemoved ? '#ea580c' : '#1e293b';
+      ctx.beginPath();
+      ctx.arc(270, 410, 110, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = '900 24px Arial';
+      ctx.fillStyle = '#fff';
+      ctx.textAlign = 'center';
+      ctx.fillText('🔥 暖氣主閥門', 270, 418);
+
+      // 若 3 顆螺絲皆已拔除，鐵板受重力向下掉落
+      if (allRemoved) {
+        st.plateVelocity += dt * 950;
+        st.plateY += st.plateVelocity * dt;
+        if (st.plateY > 860 && !st.resolved) {
+          st.resolved = true;
+          this.updateThermoBar(28, 100, '🔥 鐵板拆除！暖氣全開！');
+          this.showResultModal(
+            true,
+            '🔩 螺絲拆解成功！暖氣接通！',
+            '你成功卸下所有鎖死鐵板的螺絲，讓中央熔爐熱氣湧入房間救活母女！'
+          );
+        }
+      }
+
+      // 繪製擋住閥門的藍色大鐵板
+      ctx.fillStyle = '#0284c7';
+      ctx.strokeStyle = '#bae6fd';
+      ctx.lineWidth = 8;
+      ctx.fillRect(120, st.plateY - 85, 300, 195);
+      ctx.strokeRect(120, st.plateY - 85, 300, 195);
+
+      // 繪製螺絲孔與金色螺絲
+      st.bolts.forEach((b, i) => {
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, 24, 0, Math.PI * 2);
+        ctx.fillStyle = b.removed ? '#0f172a' : '#facc15';
+        ctx.fill();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = '#000';
+        ctx.stroke();
+
+        if (!b.removed) {
+          ctx.beginPath();
+          ctx.moveTo(b.x - 12, b.y);
+          ctx.lineTo(b.x + 12, b.y);
+          ctx.moveTo(b.x, b.y - 12);
+          ctx.lineTo(b.x, b.y + 12);
+          ctx.stroke();
+        } else {
+          // 移到上方空槽展示已拔除的螺絲
+          ctx.beginPath();
+          ctx.arc(180 + i * 90, 130, 22, 0, Math.PI * 2);
+          ctx.fillStyle = '#4ade80';
+          ctx.fill();
+          ctx.stroke();
+        }
+      });
+
+      // 上方收納孔槽提示
+      ctx.font = '900 18px "Microsoft JhengHei"';
+      ctx.fillStyle = '#fde047';
+      ctx.fillText('上方備用螺絲收納槽', 270, 82);
+
+      // 下方受凍母女
+      ctx.font = '76px Arial';
+      ctx.fillText(allRemoved ? '🥰' : '🥶', 270, 695);
+    }
+
+    animate() {
+      requestAnimationFrame(() => this.animate());
+      const dt = Math.min(0.05, this.clock.getDelta());
+
+      switch (this.currentModeId) {
+        case 1:
+          this.drawMode1Cabin(dt);
+          break;
+        case 2:
+          this.drawMode2PinPuzzle(dt);
+          break;
+        case 3:
+          this.updateMode3MathRunner(dt);
+          this.particles3d.update(dt, this.modeState.squadGroup.position);
+          this.renderer.render(this.scene, this.camera);
+          break;
+        case 4:
+          this.updateMode4Snowbusters(dt);
+          this.particles3d.update(dt, this.modeState.pos);
+          this.renderer.render(this.scene, this.camera);
+          break;
+        case 5:
+          this.updateMode5BearTycoon(dt);
+          this.particles3d.update(dt, this.modeState.pos);
+          this.renderer.render(this.scene, this.camera);
+          break;
+        case 6:
+          this.drawMode6Gatekeeper(dt);
+          break;
+        case 7:
+          this.drawMode7IceFishing(dt);
+          break;
+        case 8:
+          this.drawMode8ScrewPuzzle(dt);
+          break;
+      }
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    window.Game = new WhiteoutAdAnthologyEngine();
+  });
+})();
+
+</script>
+</body>
+</html> 
